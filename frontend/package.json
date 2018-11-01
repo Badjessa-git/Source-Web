@@ -1,0 +1,8 @@
+{
+  "name": "source-web",
+  "version": "1.0.0",
+  "description": "front-end",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
