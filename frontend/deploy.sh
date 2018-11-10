@@ -16,8 +16,8 @@ npm update
 
 #copy js & css files
 cp node_modules/jquery/dist/jquery.min.js $TARGETFOLDER/$WEBFOLDERNAME
-cp ./js/app.js $TARGETFOLDER/$WEBFOLDERNAME/js/
-cp ./css/app.cs $TARGETFOLDER/$WEBFOLDERNAME/css/
+cp -r ./js/ $TARGETFOLDER/$WEBFOLDERNAME/js/
+cp -r ./css/ $TARGETFOLDER/$WEBFOLDERNAME/css/
 
 #put our index.html into the resources of backend
 cp index.html $TARGETFOLDER/$WEBFOLDERNAME

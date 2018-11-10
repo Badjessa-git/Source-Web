@@ -1,7 +1,7 @@
 package com.lehigh.source;
-
+import java.util.*;
 import spark.Spark;
-
+import com.google.gson.*;
 public final class App {
     private App() {
     }
@@ -16,12 +16,22 @@ public final class App {
 
         Spark.staticFileLocation("/frontend");
         
+        final Gson gson = new Gson();
+        
         //Create the Database that we will be using through our application
         Database db = Database.getDatabase();
         
         Spark.get("/", (req, res) -> {
             res.redirect("/index.html");
             return "";
+        });
+
+        //Test to see communication between frontend and backend
+        Spark.get("/test", (req, res) -> {
+            res.status(200);
+            res.type("application/json");
+            ArrayList<PrintJobRes> valus = db.selectAllPrintJobs();
+            return gson.toJson(new StructuredResponse("ok", null, valus));
         });
     }
 
