@@ -74,6 +74,18 @@ public class Database {
         return db;
     }
 
+    /**
+     * Creates a new Entry for the job request
+     * @param firstName
+     * @param lastName
+     * @param club
+     * @param file_upload
+     * @param email
+     * @param color
+     * @param numCopies
+     * @param done
+     * @return
+     */
     public synchronized int createJobEntry(String firstName, String lastName, String club, String file_upload,
     String email, int color, int numCopies, int done) {
         int res = 0;
@@ -93,6 +105,10 @@ public class Database {
         return res;
     }
 
+    /**
+     * get all of the jobs in the database
+     * @return list of all jobs in the database
+     */
     public synchronized ArrayList<PrintJobRes> selectAllPrintJobs() {
         ArrayList<PrintJobRes> data = new ArrayList<>();
 

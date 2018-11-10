@@ -17,7 +17,7 @@ public final class App {
         Spark.staticFileLocation("/frontend");
         
         final Gson gson = new Gson();
-        
+
         //Create the Database that we will be using through our application
         Database db = Database.getDatabase();
         
@@ -27,7 +27,7 @@ public final class App {
         });
 
         //Test to see communication between frontend and backend
-        Spark.get("/test", (req, res) -> {
+        Spark.get("/printjobs", (req, res) -> {
             res.status(200);
             res.type("application/json");
             ArrayList<PrintJobRes> valus = db.selectAllPrintJobs();
