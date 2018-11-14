@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
-   $("#test").click(function() { 
+   $("#jobs").click(function() { 
         $.ajax({
             type: "GET",
-            url:"/test",
+            url:"/jobs",
             dataType: "json",
             success: function(data) {
                 alert("the call returned " + JSON.stringify(data));
