@@ -15,15 +15,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <script src="jquery.min.js"></script>
-    <script src="jquery.min.js"></script>
     <script src="bootstrap.min.js"></script>
     <script src="templates.js"></script>
-    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
-    </script>
     <link href="https://fonts.googleapis.com/css?family=Fresca" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css" />
-    <link href="bootstrap.min.css" rel="stylesheet"> </head>
-
+    <link href="bower_components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+    <link href="bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
+</head>
 <body role="document">
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
@@ -42,7 +40,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#loginmodal">Employee Login</a>
+                    <a class="nav-link" href="#loginmodal" data-toggle="modal" data-target="#loginmodal">Employee Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact Us</a>
@@ -51,18 +49,28 @@
         </div>
     </nav>
     <!-- Login Modal-->
+
     <!-- Button trigger modal -->
-      <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+      <div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="ModalloginTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Employee Login</h5>
+              <h5 class="modal-title" id="ModalloginTitle">Employee Login</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <div class"modal-body">
+            <div class="card card-container">
+            <form class="form-signin">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="email" id="inputEmail" class="form-control my-2" placeholder="Username" required autofocus>
+                <input type="password" id="inputPassword" class="form-control my-2" placeholder="Password" required>
+                <button class="btn btn-lg btn-primary btn-block btn-signin my-2" type="submit">Admin Sign In</button>
+            </form>
+		</div>
+          </a><!-- /form -->
+        </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -70,15 +78,26 @@
           </div>
         </div>
       </div>
+
     <!-- Body of the page-->
     <div class="center-div">
         <img class="img-responsive" src="./raw/pic_source.png">
-        <p class="tpbutton btn-toolbar text-center">
-            <a href="#" id="jobs" class="btn btn-primary btn-lg my-2">Request Print Jobs</a>
-            <a href="#" id="design" class="btn btn-primary btn-lg my-2">Graphic Design Request</a>
-        </p>
     </div>
+    <div class="center-div-mod">
+            <p class="btn-group text-center center-div-mod">
+                <a href="#" id="jobs" class="btn btn-primary btn-lg my-2 mx-4">Request Print Jobs</a>
+                <a href="#" id="design" class="btn btn-primary btn-lg my-2 mx-4">Graphic Design Request</a>
+        </p> 
+    </div>
+
     <script src="" async defer></script>
 </body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="templates.js"></script>
     <script src="js/script.js"></script>
 </html>
