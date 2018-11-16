@@ -1,7 +1,8 @@
 body {
-  background: url("../raw/IMG_2982.JPG");
-  background-size: cover;
-}
+  background: #fffc00;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ffffff, #fffc00);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ffffff, #fffc00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
 .center-div
 {
   margin: auto;
@@ -56,4 +57,14 @@ body {
   left: 50%;
   margin-top: 00px;
   margin-left: -275px;
+}
+
+.modal-header, h4, .close {
+  background-color: #5cb85c;
+  color:white !important;
+  text-align: center;
+  font-size: 30px;
+}
+.modal-footer {
+  background-color: #f9f9f9;
 }
