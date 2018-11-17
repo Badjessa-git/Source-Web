@@ -27,11 +27,12 @@ public final class App {
         });
 
         //Test to see communication between frontend and backend
-        Spark.get("/printjobs", (req, res) -> {
+        Spark.get("/submit_request", (req, res) -> {
             res.status(200);
             res.type("application/json");
-            ArrayList<PrintJobRes> valus = db.selectAllPrintJobs();
-            return gson.toJson(new StructuredResponse("ok", null, valus));
+            Object = req.formdata;
+            assert(Object != null);
+            return gson.toJson(new StructuredResponse("ok", null, null));
         });
     }
 
