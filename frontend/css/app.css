@@ -68,3 +68,8 @@ body {
 .modal-footer {
   background-color: #f9f9f9;
 }
+
+.main-form {
+  width: 450px;
+  margin: auto;
+}
