@@ -1,5 +1,8 @@
 package com.lehigh.source;
 import java.util.*;
+import java.lang.*;
+
+import spark.QueryParamsMap;
 import spark.Spark;
 import com.google.gson.*;
 public final class App {
@@ -27,11 +30,18 @@ public final class App {
         });
 
         //Test to see communication between frontend and backend
-        Spark.get("/submit_request", (req, res) -> {
+        Spark.post("/submit_request", (req, res) -> {
             res.status(200);
             res.type("application/json");
-            Object = req.formdata;
-            assert(Object != null);
+            QueryParamsMap map = req.queryMap();
+            try {
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "Error: " + e.getMessage();
+
+            }
+            assert(map != null);
             return gson.toJson(new StructuredResponse("ok", null, null));
         });
     }
