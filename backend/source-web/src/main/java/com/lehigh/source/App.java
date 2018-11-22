@@ -1,8 +1,7 @@
 package com.lehigh.source;
-import java.util.*;
-import spark.QueryParamsMap;
-import spark.Spark                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ;
+import spark.Spark;
 import com.google.gson.*;
+
 
 public final class App {
     private App() {
@@ -30,11 +29,23 @@ public final class App {
 
         //Test to see communication between frontend and backend
         Spark.post("/submit_request", (req, res) -> {
-            res.status(200);
-            res.type("application/json");
-            QueryParamsMap map = req.formdata;
-            assert(Object != null);
-            return gson.toJson(new StructuredResponse("ok", null, null));
+        	res.status(200);
+        	String firstName = req.params("firstname");
+        	String lastName = req.params("lastname");
+        	String email = req.params("email");
+        	String org = req.params("club_orgs");
+        	String color = req.params("color");
+        	int col = 0;
+        	if (color.equals("Color")) {
+        		col = 1;
+        	}
+        	int copies = Integer.parseInt(req.params("num_copies"));
+        	int response = db.createJobEntry(firstName, lastName, org, "not", email, col, copies, 0);
+        	if (response < 1) {
+        		return "alert(There was an error creating your entry, Please try again later)";
+        	}
+        	res.redirect("/index.html");
+        	return "";
         });
     }
 
