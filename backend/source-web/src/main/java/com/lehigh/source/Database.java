@@ -110,7 +110,7 @@ public class Database {
      * @return list of all jobs in the database
      */
     public synchronized ArrayList<PrintJobRes> selectAllPrintJobs() {
-        ArrayList<PrintJobRes> data = new ArrayList<>();
+        ArrayList<PrintJobRes> data = new ArrayList<PrintJobRes>();
 
         try {
             ResultSet res = pSelectAll.executeQuery();

@@ -1,0 +1,10 @@
+!SESSION 2018-11-21 20:48:34.032 -----------------------------------------------
+eclipse.buildId=4.9.0.I20180906-0745
+java.version=10.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -data /home/romeo/Desktop/Source-Web/backend/source-web -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.equinox.security 1 0 2018-11-21 20:48:55.498
+!MESSAGE New secure storage master password was generated (Linux libsecret integration module). 

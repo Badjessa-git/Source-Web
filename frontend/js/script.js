@@ -1,5 +1,3 @@
-var $ = require('jquery')
-
 $(document).ready(function() {
 
    $("#jobs").click(function() { 
@@ -13,20 +11,22 @@ $(document).ready(function() {
         });
     },
 
-    function submit_print_job() {
-        var formdata = document.querySelector('printJob');
-        var form = new FormData(formdata);
-        $.ajax({
-            type: "POST",
-            url: "/submit_request",
-            data: formdata,
-            success: function(data) {
-                alert("Successful Submission, Go to the source in the next 5 to 10 min")
-            },
-            error: function(data) {
-                alert("There was an error submitting your form please try again")
-            }
-
-        })
-    }
+$('#file_upload').change(function() {
+    var i = $('#file_label').clone();
+    var file = $('#file_upload')[0].files[0].name;
+    $("#file_label").text(file);
+  })
 )});
+
+$("#num_copies1").hide();
+
+$("#options").change(function() {
+    var option = $("#options option:selected").val();
+    if (option == "Black") {
+        $("#num_copies1").hide()
+        $("#num_copies").show()
+    } else {
+        $("#num_copies1").show()
+        $("#num_copies").hide()
+    }
+})

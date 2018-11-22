@@ -16,6 +16,7 @@ npm update
 
 #copy js & css files
 cp node_modules/jquery/dist/jquery.min.js $TARGETFOLDER/$WEBFOLDERNAME
+cp -r ./raw/ $TARGETFOLDER/$WEBFOLDERNAME/raw/
 cp -r ./js/ $TARGETFOLDER/$WEBFOLDERNAME/js/
 cp -r ./css/ $TARGETFOLDER/$WEBFOLDERNAME/css/
 cp node_modules/jquery/dist/jquery.min.js $TARGETFOLDER/$WEBFOLDERNAME
