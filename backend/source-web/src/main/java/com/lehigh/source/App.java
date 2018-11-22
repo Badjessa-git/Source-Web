@@ -30,8 +30,6 @@ public final class App {
         //Test to see communication between frontend and backend
         Spark.post("/submit_request", (req, res) -> {
         	res.status(200);
-<<<<<<< HEAD
-=======
         	String firstName = req.params("firstname");
         	String lastName = req.params("lastname");
         	String email = req.params("email");
@@ -46,7 +44,6 @@ public final class App {
         	if (response < 1) {
         		return "alert(There was an error creating your entry, Please try again later)";
         	}
->>>>>>> backend
         	res.redirect("/index.html");
         	return "";
         });
