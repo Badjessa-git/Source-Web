@@ -30,6 +30,23 @@ public final class App {
         //Test to see communication between frontend and backend
         Spark.post("/submit_request", (req, res) -> {
         	res.status(200);
+<<<<<<< HEAD
+=======
+        	String firstName = req.params("firstname");
+        	String lastName = req.params("lastname");
+        	String email = req.params("email");
+        	String org = req.params("club_orgs");
+        	String color = req.params("color");
+        	int col = 0;
+        	if (color.equals("Color")) {
+        		col = 1;
+        	}
+        	int copies = Integer.parseInt(req.params("num_copies"));
+        	int response = db.createJobEntry(firstName, lastName, org, "not", email, col, copies, 0);
+        	if (response < 1) {
+        		return "alert(There was an error creating your entry, Please try again later)";
+        	}
+>>>>>>> backend
         	res.redirect("/index.html");
         	return "";
         });
