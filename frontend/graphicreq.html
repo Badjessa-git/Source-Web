@@ -26,12 +26,10 @@
     <body role="document">
         <div class="container-fluid">
            <header class='text-center'>
-      <h1>Print Job Submission</h1>
-      <p><em> Want to request a print job and pick it up whent its ready? Fill out
-        this form.</em></p>
+      <h1>Graphic Design Request</h1>
+      <p><em>Need a poster for your event? you can make a request below</em></p>
     </header>
-    <!--action="/submit_request" method="post" -->
-<form onsubmit="alert('Your request has been sent, come to the SOuRCe in 10 to 15 mins')"  enctype="multipart/form-data" id="printJob" name="printJob" class="main-form needs-validation" novalidate>
+<form onsubmit="alert('Your request has been sent, a confirmation email will be sent to you \n Thank you for using the source')" action="/submit_grequest" method="post" enctype="multipart/form-data" name="printJob" class="main-form needs-validation" novalidate>
         <div class="row">
             <div class="col">
                 <div class="form-group">
@@ -54,71 +52,38 @@
             <label for="club_orgs">Club/Orgnization</label>
             <input type="text" name="club_orgs" id="club_orgs" class="form-control" required>
         </div>
-        <div class="row">
-        <div class="col">
         <div class="form-group">
-            <label for="color">Color</label>
-            <select name="color" id="options" class="form-control" required>
-                <option value="Black">Black</option>
-                <option value="Colors">Colors</option>
-            </select>
-        </div>
-        </div>
-        <div class="col">
-        <div class="form-group" id="num_copies">
-            <label for="num_copies">Number of Copies</label>
-            <select name="num_copies" id="num_copies" class="form-control" required>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-
-            </select>
-        </div>
-        <div class="form-group" id="num_copies1">
-            <label for="num_copies">Number of Copies</label>
-            <select name="num_copies" id="num_copies1" class="form-control" required>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-        </div>
-        </div>
+            <label for="event_name">Event Name</label>
+            <input type="text" name="event_name" id="event_name" class="form-control" required>
         </div>
         <div class="form-group">
-        <label for="file_upload">File to print</label>
-        <div class="input-group">
+            <label for="event_date">Event Date</label>
+            <input type="date" id="event_date" name="event_date" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="event_date">Poster Due Date</label>
+            <input type="date" id="event_date" name="event_date" class="form-control" required>
+        </div>
+                <div class="form-group">
+            <label for="notes">Any additional notes</label>
+            <input type="text" name="notes" id="notes" class="form-control">
+        </div>
+        <div class="form-group">
+    <label for="file_upload">Any files you want us to use</label>
+    <div class="input-group">
   <div class="input-group-prepend">
-    <span class="input-group-text">Upload</span>
+    <span class="input-group-text" id="file_upload">Upload</span>
   </div>
   <div class="custom-file">
-    <input type="file" class="custom-file-input" id="file_upload" accept="application/pdf" aria-describedby="file_upload" required>
+    <input type="file" class="custom-file-input" id="file_upload" aria-describedby="file_upload">
     <label id="file_label" class="custom-file-label" for="file_upload">Choose file</label>
   </div>
 </div>
+
         </div>
         <button type="submit" id="submit" onClick="submit_print_job" class="btn btn-block btn-primary my-5">Submit</button>
     </form>
         </div>
     </body>
-            <script src="js/script.js" async defer></script>
-
+    <script src="js/script.js"></script>
 </html>
