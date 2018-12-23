@@ -23,6 +23,13 @@ public class Database {
     //Prepared statement for selecting from the database
     private PreparedStatement pSelectAll;
 
+    //Prepared statemend for adding user to our database
+    private PreparedStatement pUserInsert;
+
+    //Prepared statement for getting user
+    private PreparedStatement pUserRetrieve;
+
+
     //Private constructor for our database
     private Database() {
         //Empty
@@ -31,16 +38,15 @@ public class Database {
     /*
      *  Create the Database that we will be using through out our application to connect to heroku
      */
-    static Database getDatabase() {
+    static Database getDatabase(Map<String, String> env) {
         //unconfigured database object;
         Database db = new Database();
-        Map<String, String> env = System.getenv();
 
-        //String db_url = env.get("postgres://fjdfpctspidkxy:40d9a191d6db012d89caa8bb75d4ef8a56ef0e2073fc4e63bcd193b1c7e2d904@ec2-107-22-169-45.compute-1.amazonaws.com:5432/defqfeg6ruk335");
+        String db_url = env.get("DATABASE_URL");
     
         try {
             Class.forName("org.postgresql.Driver");
-            URI dbURI = new URI("postgres://fjdfpctspidkxy:40d9a191d6db012d89caa8bb75d4ef8a56ef0e2073fc4e63bcd193b1c7e2d904@ec2-107-22-169-45.compute-1.amazonaws.com:5432/defqfeg6ruk335");
+            URI dbURI = new URI(db_url);
             String username = dbURI.getUserInfo().split(":")[0];
             String password = dbURI.getUserInfo().split(":")[1];
 
@@ -63,8 +69,10 @@ public class Database {
         }
 
         try {
-           db.pInsert = db.dConnection.prepareStatement("INSERT INTO print_jobs values(default, ?, ?, ?, default, ?, ?, ?, ?, ?");
+           db.pInsert = db.dConnection.prepareStatement("INSERT INTO print_jobs values(default, ?, ?, ?, default, ?, ?, ?, ?, ?)");
            db.pSelectAll = db.dConnection.prepareStatement("SELECT * from print_jobs");
+           db.pUserInsert = db.dConnection.prepareStatement("INSERT INTO user_table values(default, ?, ?, ?, ?, ?, ?)");
+           db.pUserRetrieve = db.dConnection.prepareStatement("SELECT * from user where user_id equals values(?)");
         } catch (SQLException e) {
             System.err.println("Error creating prepared statement");
             e.printStackTrace();
@@ -87,13 +95,13 @@ public class Database {
      * @return
      */
     public synchronized int createJobEntry(String firstName, String lastName, String club, String file_upload,
-    String email, int color, int numCopies, int done) {
+                                           String email, int color, int numCopies, int done) {
         int res = 0;
         try {
             pInsert.setString(1, firstName);
             pInsert.setString(2, lastName);
             pInsert.setString(3, club);
-            pInsert.setString(4, file_upload);
+            pInsert.setString(4, "file_upload");
             pInsert.setString(5, email);
             pInsert.setInt(6, color);
             pInsert.setInt(7, numCopies);
@@ -132,5 +140,55 @@ public class Database {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Inserting into a User into our database
+     * @param uid
+     * @param user
+     * @param given_name
+     * @param email
+     * @param picture_url
+     * @return
+     */
+    public synchronized int createUserEntry(String uid, String user, String given_name,
+                                            String email, String picture_url, String family_name) {
+        try {
+            pUserInsert.setString(1, uid);
+            pUserInsert.setString(2, user);
+            pUserInsert.setString(3, given_name);
+            pUserInsert.setString(4, family_name);
+            pUserInsert.setString(5, email);
+            pUserInsert.setString(6, picture_url);
+            int res = pUserInsert.executeUpdate();
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+
+    /**
+     * Get the user based on the userId
+     * @param id the id of the google user
+     */
+    public synchronized User getUser(String id) {
+        User res = null;
+        try {
+            pUserRetrieve.setString(1, id);
+            ResultSet querry = pUserRetrieve.executeQuery();
+            querry.next();
+            res = new User(querry.getString("user_id"), 
+                           querry.getString("email"), 
+                           querry.getString("username"), 
+                           querry.getString("given_name"), 
+                           querry.getString("picture_url"),
+                           querry.getString("family_name"));
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return res;
     }
 }
