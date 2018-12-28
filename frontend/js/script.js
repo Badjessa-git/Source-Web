@@ -28,10 +28,9 @@ function onSignIn(googleUser) {
     xhr.open('POST', 'https://source-web.herokuapp.com/oauth/callback');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send('idtoken=' + id_token);
-    window.sessionStorage.setItem("idtoken", id_token);
-    window.sessionStorage.setItem("user", JSON.stringify(googleUser));
     xhr.onload = function () {
         console.log('Signed in as: ' + xhr.responseText);
-        $(location).attr('href', './employee.html');
+        window.sessionStorage.setItem("user", googleUser);
+        $(location).attr('href', './print.html');
     };
 }
