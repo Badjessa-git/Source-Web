@@ -17,7 +17,7 @@ mkdir $TARGETFOLDER
 cp index.html $TARGETFOLDER
 cp graphicreq.html $TARGETFOLDER
 cp printjob.html $TARGETFOLDER
-cp employee.html $TARGETFOLDER
+cp print.html $TARGETFOLDER
 node_modules/typescript/bin/tsc ./ts/printjob.ts --strict --outFile $TARGETFOLDER/js/printjob.js
 node_modules/typescript/bin/tsc ./ts/graphicreq.ts --strict --outFile $TARGETFOLDER/js/graphicreq.js
 cp node_modules/jquery/dist/jquery.min.js $TARGETFOLDER

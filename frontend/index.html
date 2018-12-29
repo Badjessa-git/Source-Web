@@ -60,13 +60,13 @@
     <!-- Modal -->
     <div class="modal fade" id="loginmodal" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header" style="padding:35px 50px;">
                     <h4 class="mx-auto">Source Employee Login</h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">
+                    <div class="loader"></div>
                     <form role="form">
                         <div class="form-group">
                             <label for="usrname">
@@ -82,7 +82,6 @@
                             <span class="glyphicon glyphicon-off"></span> Login</button>
                         
                             <div class="g-signin2 my-2" data-width="400px" data-theme="dark" data-longtitle="true" data-onsuccess="onSignIn"></div>
-
                     </form>
                     <!--
           <a class="g-signin2 btn btn-block btn-social btn-google my-2 text-center" style="color: white" data-onsuccess="onSignIn">
@@ -116,12 +115,12 @@
 </div>
 
 <script  type="text/javascript" src="./js/script.js" async defer></script>
-<script type="text/javascript">
+<!--<script type="text/javascript">
       window.onbeforeunload = function(e){
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             console.log('User signed out.');
         });      
     };
-</script>
+</script>-->
 </html>
