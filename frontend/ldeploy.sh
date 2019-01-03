@@ -28,6 +28,7 @@ cp node_modules/bootstrap/dist/js/bootstrap.min.js $TARGETFOLDER
 cp node_modules/bootstrap/dist/css/bootstrap.min.css $TARGETFOLDER
 cp -R node_modules/bootstrap/dist/fonts $TARGETFOLDER
 cp -R bower_components $TARGETFOLDER
+cp credentials.json $TARGETFOLDER
 
 #launch local_server
 node_modules/.bin/http-server $TARGETFOLDER -c-1

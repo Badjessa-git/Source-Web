@@ -28,36 +28,15 @@ public final class App {
 
         Spark.staticFileLocation("/frontend");
 
-        String cors_enabled = env.get("CORS_ENABLED");
-        System.out.println(cors_enabled);
-        if (cors_enabled.equals("True")) {
-            final String acceptCrossOriginRequestsFrom = "*";
-            final String acceptedCrossOriginRoutes = "GET,PUT,POST,DELETE,OPTIONS";
-            final String supportedRequestHeaders = "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin";
-            enableCORS(acceptCrossOriginRequestsFrom, acceptedCrossOriginRoutes, supportedRequestHeaders);
-        }
+        // String cors_enabled = env.get("CORS_ENABLED");
+        // System.out.println(cors_enabled);
+        // if (cors_enabled.equals("True")) {
+        //     final String acceptCrossOriginRequestsFrom = "*";
+        //     final String acceptedCrossOriginRoutes = "GET,PUT,POST,DELETE,OPTIONS";
+        //     final String supportedRequestHeaders = "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin";
+        //     enableCORS(acceptCrossOriginRequestsFrom, acceptedCrossOriginRoutes, supportedRequestHeaders);
+        // }
         final Gson gson = new Gson();
-
-        // Create the Database that we will be using through our application
-        Database db = Database.getDatabase(env);
-
-        Spark.get("/", (req, res) -> {
-            res.redirect("/index.html");
-            return "";
-        });
-
-        // Test to see communication between frontend and backend
-        Spark.post("/submit/n_req", (req, res) -> {
-            PrintJobRequest jobRequest = gson.fromJson(req.body(), PrintJobRequest.class);
-            int response = db.createJobEntry(jobRequest.firstName, jobRequest.lastName, jobRequest.club,
-                    jobRequest.file_upload, jobRequest.email, jobRequest.color, jobRequest.numCopies, jobRequest.done);
-            if (response < 1) {
-                return gson.toJson(new StructuredResponse("error", "there was an error adding to the database", null));
-            }
-            res.status(200);
-            return gson.toJson(new StructuredResponse("ok", null, null));
-
-        });
 
         // Verifying the integrity of the google token
         Spark.post("/oauth/callback", (req, res) -> {
@@ -91,52 +70,37 @@ public final class App {
                 // String locale = (String) payload.get("locale");
                 // String familyName = (String) payload.get("family_name");
                 // String givenName = (String) payload.get("given_name");
-                if (db.getUser(userId) == null) {
                     String email = payload.getEmail();
                     //boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-                    String name = (String) payload.get("name");
-                    String pictureUrl = (String) payload.get("picture");
-                    //String locale = (String) payload.get("locale");
-                    String familyName = (String) payload.get("family_name");
-                    String givenName = (String) payload.get("given_name");
-                    int resp = db.createUserEntry(userId, name, givenName, email, pictureUrl, familyName);
-                    if (resp < 1) {
-                        res.status(205);
-                        return gson.toJson(new StructuredResponse("error", "there was an error adding to the database", null));
-                    }
-                } 
+                    // String name = (String) payload.get("name");
+                    // String pictureUrl = (String) payload.get("picture");
+                    // //String locale = (String) payload.get("locale");
+                    // String familyName = (String) payload.get("family_name");
+                    // String givenName = (String) payload.get("given_name");
+                    final String address = "insource@lehigh.edu";
+                    if (payload.getHostedDomain().contains("lehigh.edu") && email.equals(address)) {
+                        res.status(200);
+                        return gson.toJson(new StructuredResponse("ok", "received token, success sign in", null));                    }
+                
             } else {
                 System.out.println("Invalid ID token.");
             }
             res.status(200);
-            return gson.toJson(new StructuredResponse("ok", "received token", null));
+            return gson.toJson(new StructuredResponse("not allowed", "user not allowed", null));
         });
 
-        Spark.post("/submit/g_req", (req, res) -> {
-            res.status(200);
-            return null;
-        });
-        // Return all thej jobs in the database in order of
         Spark.get("/getJobs", (req, res) -> {
+            final String id = "1WzcrGKU__d9I0CCG9GD3S-AR8GJVDSx0k4L0qQhsOk8";
+            GoogleSheets curJob = new GoogleSheets(id);
+            List<PrintJobRes> resp = curJob.getAllCurrentPrintJobs();
+            if (resp != null) {
+                res.status(200);
+                res.type("application/json");
+                return gson.toJson(new StructuredResponse("ok", null, resp));
+            }
             res.status(200);
-            ArrayList<PrintJobRes> jobResponse = null;
-
-            // Get all of the printjobs;
-            jobResponse = db.selectAllPrintJobs();
-
-            // Sort by the timestamp such that it is ordered from ealiest to latest
-            jobResponse.sort(PrintJobRes.sort());
-            return gson.toJson(new StructuredResponse("200", "No errors encountered", jobResponse));
-        });
-
-        // Update a particular post
-        Spark.post("/done/:id", (req, res) -> {
-            res.status(200);
-            int id = Integer.parseInt(req.params("id"));
-            // Code to alter table such that the value 0 now becomes 1 to repreent that work
-            // has been done on a particular request.
-            // todo
-            return null;
+            res.type("application/json");
+            return gson.toJson(new StructuredResponse("ok", "No job found", null));
         });
     }
 

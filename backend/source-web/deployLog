@@ -8,7 +8,7 @@
 [INFO] 
 [INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ source-web ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 323 resources
+[INFO] Copying 324 resources
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ source-web ---
 [INFO] Nothing to compile - all classes are up to date
@@ -24,6 +24,7 @@
 [INFO] Tests are skipped.
 [INFO] 
 [INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ source-web ---
+[INFO] Building jar: /Users/romeobahoumda/Desktop/Source-Web/backend/source-web/target/source-web-1.0-SNAPSHOT.jar
 [INFO] 
 [INFO] --- maven-assembly-plugin:2.2-beta-5:single (default) @ source-web ---
 [INFO] META-INF/ already added, skipping
@@ -1869,6 +1870,91 @@ Adding org.apache.maven.shared.repository.RepositoryManagermaven31
 [INFO] org/slf4j/ already added, skipping
 [INFO] META-INF/maven/ already added, skipping
 [INFO] META-INF/maven/org.slf4j/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] com/ already added, skipping
+[INFO] com/google/ already added, skipping
+[INFO] com/google/api/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] com/ already added, skipping
+[INFO] com/google/ already added, skipping
+[INFO] com/google/api/ already added, skipping
+[INFO] com/google/api/client/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/com.google.oauth-client/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] com/ already added, skipping
+[INFO] com/google/ already added, skipping
+[INFO] com/google/api/ already added, skipping
+[INFO] com/google/api/client/ already added, skipping
+[INFO] com/google/api/client/extensions/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/com.google.oauth-client/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] org/mortbay/ already added, skipping
+[INFO] org/mortbay/servlet/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/org.mortbay.jetty/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] javax/ already added, skipping
+[INFO] javax/servlet/ already added, skipping
+[INFO] javax/servlet/http/ already added, skipping
+[INFO] javax/servlet/http/LocalStrings.properties already added, skipping
+[INFO] javax/servlet/http/HttpServletRequestWrapper.class already added, skipping
+[INFO] javax/servlet/http/HttpServletRequest.class already added, skipping
+[INFO] javax/servlet/http/Cookie.class already added, skipping
+[INFO] javax/servlet/http/HttpSession.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionContext.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionBindingListener.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionBindingEvent.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionEvent.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionActivationListener.class already added, skipping
+[INFO] javax/servlet/http/HttpServletResponse.class already added, skipping
+[INFO] javax/servlet/http/HttpServlet.class already added, skipping
+[INFO] javax/servlet/http/NoBodyResponse.class already added, skipping
+[INFO] javax/servlet/http/NoBodyOutputStream.class already added, skipping
+[INFO] javax/servlet/http/HttpServletResponseWrapper.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionListener.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionAttributeListener.class already added, skipping
+[INFO] javax/servlet/http/HttpUtils.class already added, skipping
+[INFO] javax/servlet/LocalStrings.properties already added, skipping
+[INFO] javax/servlet/ServletRequestWrapper.class already added, skipping
+[INFO] javax/servlet/ServletRequest.class already added, skipping
+[INFO] javax/servlet/ServletInputStream.class already added, skipping
+[INFO] javax/servlet/RequestDispatcher.class already added, skipping
+[INFO] javax/servlet/ServletContext.class already added, skipping
+[INFO] javax/servlet/ServletResponse.class already added, skipping
+[INFO] javax/servlet/ServletException.class already added, skipping
+[INFO] javax/servlet/Servlet.class already added, skipping
+[INFO] javax/servlet/ServletOutputStream.class already added, skipping
+[INFO] javax/servlet/ServletConfig.class already added, skipping
+[INFO] javax/servlet/ServletContextAttributeEvent.class already added, skipping
+[INFO] javax/servlet/ServletContextEvent.class already added, skipping
+[INFO] javax/servlet/ServletResponseWrapper.class already added, skipping
+[INFO] javax/servlet/ServletRequestEvent.class already added, skipping
+[INFO] javax/servlet/Filter.class already added, skipping
+[INFO] javax/servlet/FilterConfig.class already added, skipping
+[INFO] javax/servlet/FilterChain.class already added, skipping
+[INFO] javax/servlet/SingleThreadModel.class already added, skipping
+[INFO] javax/servlet/GenericServlet.class already added, skipping
+[INFO] javax/servlet/ServletRequestAttributeListener.class already added, skipping
+[INFO] javax/servlet/ServletRequestAttributeEvent.class already added, skipping
+[INFO] javax/servlet/ServletContextListener.class already added, skipping
+[INFO] javax/servlet/UnavailableException.class already added, skipping
+[INFO] javax/servlet/ServletContextAttributeListener.class already added, skipping
+[INFO] javax/servlet/ServletRequestListener.class already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/org.mortbay.jetty/ already added, skipping
 [INFO] META-INF/ already added, skipping
 [INFO] META-INF/MANIFEST.MF already added, skipping
 [INFO] com/ already added, skipping
@@ -3726,6 +3812,91 @@ Component: org.apache.maven.shared.repository.RepositoryManagermaven31 is alread
 [INFO] META-INF/maven/org.slf4j/ already added, skipping
 [INFO] META-INF/ already added, skipping
 [INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] com/ already added, skipping
+[INFO] com/google/ already added, skipping
+[INFO] com/google/api/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] com/ already added, skipping
+[INFO] com/google/ already added, skipping
+[INFO] com/google/api/ already added, skipping
+[INFO] com/google/api/client/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/com.google.oauth-client/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] com/ already added, skipping
+[INFO] com/google/ already added, skipping
+[INFO] com/google/api/ already added, skipping
+[INFO] com/google/api/client/ already added, skipping
+[INFO] com/google/api/client/extensions/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/com.google.oauth-client/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] org/mortbay/ already added, skipping
+[INFO] org/mortbay/servlet/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/org.mortbay.jetty/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] javax/ already added, skipping
+[INFO] javax/servlet/ already added, skipping
+[INFO] javax/servlet/http/ already added, skipping
+[INFO] javax/servlet/http/LocalStrings.properties already added, skipping
+[INFO] javax/servlet/http/HttpServletRequestWrapper.class already added, skipping
+[INFO] javax/servlet/http/HttpServletRequest.class already added, skipping
+[INFO] javax/servlet/http/Cookie.class already added, skipping
+[INFO] javax/servlet/http/HttpSession.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionContext.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionBindingListener.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionBindingEvent.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionEvent.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionActivationListener.class already added, skipping
+[INFO] javax/servlet/http/HttpServletResponse.class already added, skipping
+[INFO] javax/servlet/http/HttpServlet.class already added, skipping
+[INFO] javax/servlet/http/NoBodyResponse.class already added, skipping
+[INFO] javax/servlet/http/NoBodyOutputStream.class already added, skipping
+[INFO] javax/servlet/http/HttpServletResponseWrapper.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionListener.class already added, skipping
+[INFO] javax/servlet/http/HttpSessionAttributeListener.class already added, skipping
+[INFO] javax/servlet/http/HttpUtils.class already added, skipping
+[INFO] javax/servlet/LocalStrings.properties already added, skipping
+[INFO] javax/servlet/ServletRequestWrapper.class already added, skipping
+[INFO] javax/servlet/ServletRequest.class already added, skipping
+[INFO] javax/servlet/ServletInputStream.class already added, skipping
+[INFO] javax/servlet/RequestDispatcher.class already added, skipping
+[INFO] javax/servlet/ServletContext.class already added, skipping
+[INFO] javax/servlet/ServletResponse.class already added, skipping
+[INFO] javax/servlet/ServletException.class already added, skipping
+[INFO] javax/servlet/Servlet.class already added, skipping
+[INFO] javax/servlet/ServletOutputStream.class already added, skipping
+[INFO] javax/servlet/ServletConfig.class already added, skipping
+[INFO] javax/servlet/ServletContextAttributeEvent.class already added, skipping
+[INFO] javax/servlet/ServletContextEvent.class already added, skipping
+[INFO] javax/servlet/ServletResponseWrapper.class already added, skipping
+[INFO] javax/servlet/ServletRequestEvent.class already added, skipping
+[INFO] javax/servlet/Filter.class already added, skipping
+[INFO] javax/servlet/FilterConfig.class already added, skipping
+[INFO] javax/servlet/FilterChain.class already added, skipping
+[INFO] javax/servlet/SingleThreadModel.class already added, skipping
+[INFO] javax/servlet/GenericServlet.class already added, skipping
+[INFO] javax/servlet/ServletRequestAttributeListener.class already added, skipping
+[INFO] javax/servlet/ServletRequestAttributeEvent.class already added, skipping
+[INFO] javax/servlet/ServletContextListener.class already added, skipping
+[INFO] javax/servlet/UnavailableException.class already added, skipping
+[INFO] javax/servlet/ServletContextAttributeListener.class already added, skipping
+[INFO] javax/servlet/ServletRequestListener.class already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/org.mortbay.jetty/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
 [INFO] com/ already added, skipping
 [INFO] com/google/ already added, skipping
 [INFO] META-INF/maven/ already added, skipping
@@ -3740,6 +3911,12 @@ Component: org.apache.maven.shared.repository.RepositoryManagermaven31 is alread
 [INFO] 
 [INFO] 
 [INFO] --- heroku-maven-plugin:2.0.6:deploy (default-cli) @ source-web ---
+[INFO] Copying jetty-util-6.1.26.jar to /Users/romeobahoumda/Desktop/Source-Web/backend/source-web/target/dependency/jetty-util-6.1.26.jar
+[INFO] Copying servlet-api-2.5-20081211.jar to /Users/romeobahoumda/Desktop/Source-Web/backend/source-web/target/dependency/servlet-api-2.5-20081211.jar
+[INFO] Copying google-api-services-sheets-v4-rev553-1.25.0.jar to /Users/romeobahoumda/Desktop/Source-Web/backend/source-web/target/dependency/google-api-services-sheets-v4-rev553-1.25.0.jar
+[INFO] Copying google-oauth-client-java6-1.27.0.jar to /Users/romeobahoumda/Desktop/Source-Web/backend/source-web/target/dependency/google-oauth-client-java6-1.27.0.jar
+[INFO] Copying google-oauth-client-jetty-1.27.0.jar to /Users/romeobahoumda/Desktop/Source-Web/backend/source-web/target/dependency/google-oauth-client-jetty-1.27.0.jar
+[INFO] Copying jetty-6.1.26.jar to /Users/romeobahoumda/Desktop/Source-Web/backend/source-web/target/dependency/jetty-6.1.26.jar
 [INFO] doxia-decoration-model-1.4.jar already exists in destination.
 [INFO] org.eclipse.sisu.inject-0.3.3.jar already exists in destination.
 [INFO] aopalliance-1.0.jar already exists in destination.
@@ -3870,7 +4047,7 @@ Component: org.apache.maven.shared.repository.RepositoryManagermaven31 is alread
 [INFO]        - including: target/
 [INFO] -----> Creating build...
 [INFO]        - file: target/heroku/build.tgz
-[INFO]        - size: 50MB
+[INFO]        - size: 52MB
 [INFO] -----> Uploading build...
 [INFO]        - success
 [INFO] -----> Deploying...
@@ -3881,15 +4058,15 @@ Component: org.apache.maven.shared.repository.RepositoryManagermaven31 is alread
 [INFO] remote:        Procfile declares types -> web
 [INFO] remote: 
 [INFO] remote: -----> Compressing...
-[INFO] remote:        Done: 101M
+[INFO] remote:        Done: 102.9M
 [INFO] remote: -----> Launching...
-[INFO] remote:        Released v52
+[INFO] remote:        Released v56
 [INFO] remote:        https://source-web.herokuapp.com/ deployed to Heroku
 [INFO] remote: 
 [INFO] -----> Done
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  01:32 min
-[INFO] Finished at: 2018-12-22T17:17:45-05:00
+[INFO] Total time:  01:52 min
+[INFO] Finished at: 2019-01-02T18:45:08-05:00
 [INFO] ------------------------------------------------------------------------

@@ -16,10 +16,10 @@ import java.util.*;
     public int numCopies;
     public int done;
     public int jobId;
-    public Date timeStamp;
+    public String timeStamp;
 
     public PrintJobRes(int jobId, String firstName, String lastName, String club,
-     Date timeStamp, String file_upload, String email, int color,
+     String timeStamp, String file_upload, String email, int color,
      int numCopies, int done) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,4 +43,8 @@ import java.util.*;
         };
     }
 
+    @Override
+    public String toString() {
+        return this.timeStamp + " " + this.email + " " + this.lastName;
+    }
 }

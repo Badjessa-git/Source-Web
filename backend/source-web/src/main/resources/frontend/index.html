@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Fresca" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css" />
     <link href="bower_components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onLoad=window.onbeforeunload" async defer></script>
     <link href="bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -34,7 +34,7 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     <!-- Image and text -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="#">Lehigh Universtiy SOuRCe</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -60,32 +60,28 @@
     <!-- Modal -->
     <div class="modal fade" id="loginmodal" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header" style="padding:35px 50px;">
                     <h4 class="mx-auto">Source Employee Login</h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">
+                    <div class="loader"></div>
                     <form role="form">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="usrname">
                                 <span class="glyphicon glyphicon-user"></span> Username</label>
-                            <input type="text" class="form-control" id="usrname" placeholder="Enter userName">
+                            <input type="text" class="form-control" id="usrname" placeholder="Enter username">
                         </div>
                         <div class="form-group">
                             <label for="psw">
                                 <span class="glyphicon glyphicon-eye-open"></span> Password</label>
                             <input type="text" class="form-control" id="psw" placeholder="Enter passsword">
                         </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="" checked>Remember me</label>
-                        </div>
                         <button type="submit" class="btn btn-success btn-block">
-                            <span class="glyphicon glyphicon-off"></span> Login</button>
-                        <div class="g-signin2 btn-lg text-center btn-block" data-width="100%" data-theme="dark" data-longtitle="true" data-onsuccess="onSignIn"></div>
-
+                            <span class="glyphicon glyphicon-off"></span> Login</button> -->
+                        
+                            <div class="g-signin2 my-2" data-width="400px" data-theme="dark" data-longtitle="true" data-onsuccess="onSignIn"></div>
                     </form>
                     <!--
           <a class="g-signin2 btn btn-block btn-social btn-google my-2 text-center" style="color: white" data-onsuccess="onSignIn">

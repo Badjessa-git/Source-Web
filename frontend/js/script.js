@@ -24,17 +24,25 @@ $("#options").change(function() {
 });
 //Takes car of the google sign in
 function onSignIn(googleUser) {
-    $(".loader").show();
+    $(".loader").hide();
     var id_token = googleUser.getAuthResponse().id_token;
+    console.log(googleUser.getBasicProfile().getEmail());
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://source-web.herokuapp.com/oauth/callback');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.responseType = "json"
     xhr.send('idtoken=' + id_token);
     xhr.onload = function () {
         $(".modal").dismiss
-        console.log('Signed in as: ' + xhr.responseText);
-        window.sessionStorage.setItem("user", JSON.stringify(googleUser));
+        if (xhr.response.mStatus === "not allowed") {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });   
+            window.alert("There was an error with the Login, please try again");
+        } else {
+            $(location).attr('href', './print.html');
+        }
         $(".loader").hide();
-        $(location).attr('href', './print.html');
     };
 }

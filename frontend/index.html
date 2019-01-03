@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Fresca" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css" />
     <link href="bower_components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onLoad=window.onbeforeunload" async defer></script>
     <link href="bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -34,7 +34,7 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     <!-- Image and text -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="#">Lehigh Universtiy SOuRCe</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@
                 <div class="modal-body" style="padding:40px 50px;">
                     <div class="loader"></div>
                     <form role="form">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="usrname">
                                 <span class="glyphicon glyphicon-user"></span> Username</label>
                             <input type="text" class="form-control" id="usrname" placeholder="Enter username">
@@ -79,7 +79,7 @@
                             <input type="text" class="form-control" id="psw" placeholder="Enter passsword">
                         </div>
                         <button type="submit" class="btn btn-success btn-block">
-                            <span class="glyphicon glyphicon-off"></span> Login</button>
+                            <span class="glyphicon glyphicon-off"></span> Login</button> -->
                         
                             <div class="g-signin2 my-2" data-width="400px" data-theme="dark" data-longtitle="true" data-onsuccess="onSignIn"></div>
                     </form>
@@ -115,12 +115,12 @@
 </div>
 
 <script  type="text/javascript" src="./js/script.js" async defer></script>
-<!--<script type="text/javascript">
+<script type="text/javascript">
       window.onbeforeunload = function(e){
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             console.log('User signed out.');
         });      
     };
-</script>-->
+</script>
 </html>
