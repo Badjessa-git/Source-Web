@@ -22,16 +22,19 @@ $("#options").change(function() {
 
 
 });
-//Takes car of the google sign in
+
+//Takes care of the google sign in
 function onSignIn(googleUser) {
     $(".loader").hide();
-    var id_token = googleUser.getAuthResponse().id_token;
-    console.log(googleUser.getBasicProfile().getEmail());
+    console.log(googleUser)
+    var res= googleUser.getAuthResponse();
+    var id_token =res.id_token;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://source-web.herokuapp.com/oauth/callback');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.responseType = "json"
     xhr.send('idtoken=' + id_token);
+
     xhr.onload = function () {
         $(".modal").dismiss
         if (xhr.response.mStatus === "not allowed") {
@@ -41,6 +44,7 @@ function onSignIn(googleUser) {
             });   
             window.alert("There was an error with the Login, please try again");
         } else {
+            window.localStorage.setItem("id", xhr.response.mData);
             $(location).attr('href', './print.html');
         }
         $(".loader").hide();

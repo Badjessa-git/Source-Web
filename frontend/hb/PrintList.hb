@@ -1,36 +1,31 @@
 <div class="panel panel-default" id="PrintList">
     <div class="panel-heading">
-        <h3 class="panel-title">Print Job Requests</h3>
+        <h2 class="panel-title my-2">Print Job Requests</h2>
     </div>
     <div class="panel-body">
-        <div class="table-responsive">
+        <div class="table-responsive table-hover">
             <table class="table">
-                <thead>
+                <thead class="table-dark">
                     <th scope="col">#</th>
-                    <th scope="col">First Name</th>
                     <th scope="col">Last Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Club/Organization</th>
                     <th scope="col">Color</th>                    
-                    <th scope="col">Number of Copies</th>
-                    <th scope="col">File</th>
                     <th scope="col">Timestamp</th>
-                    <th scope="col">Completed</th>
+                    <th scope="col"></th>
                 </thead>
                 <tbody>
                     {{#each mData}}
                     <tr>
-                        <th scope="row">{{mData.jobId}}</th>
-                        <td>{{mData.firstName}}</td>
-                        <td>{{mData.lastName}}</td>
-                        <td>{{mData.email}}</td>
-                        <td>{{mData.club}}</td>
-                        <td>{{mData.color}}</td>
-                        <td>{{mData.numCopies}}</td>
-                        <td>{{mData.file_upload}}</td>
-                        <td>{{mData.timeStamp}}</td>
-                        <td><input type="checkbox" value="{{mData.done}}"></td> 
+                        <th scope="row">{{this.jobId}}</th>
+                        <td>{{this.lastName}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.club}}</td>
+                        <td>{{this.color}}</td>
+                        <td>{{this.timeStamp}}</td>
+                        <td><button class="PrintList-editbtn" data-toggle="modal" data-value="{{this.jobId}}">View/Edit</button></td>
                     </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>

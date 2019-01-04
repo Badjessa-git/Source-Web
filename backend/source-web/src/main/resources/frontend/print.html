@@ -20,11 +20,7 @@
             rel="stylesheet">
         <link href="bower_components/font-awesome/css/font-awesome.css"
             rel="stylesheet">
-        <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>        
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
             integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -35,7 +31,8 @@
             crossorigin="anonymous"></script>
         <meta name="google-signin-client_id"
             content="463395064610-5k6r1ilnlg08qv18rkdp95fp4jadmsk1.apps.googleusercontent.com">
-            <meta name="google-signin-client_id" content="463395064610-5k6r1ilnlg08qv18rkdp95fp4jadmsk1.apps.googleusercontent.com">
+        <script src="handlebars.min.js"></script>
+        <script src="js/templates.js"></script>
 
         <link rel="stylesheet" href="./css/app.css">
     </head>
@@ -60,10 +57,11 @@
                         <a class="nav-link" href="#">Contact Us</a>
                     </li>
                     <li class="nav-item">
-                        <div id="username">Current User</div>
+                        <a class="nav-link">Welcome to the Source</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" onclick="signOut()">Sign out</a>
+                        <a class="nav-link" href="#" onclick="signOut()">Sign
+                            out</a>
                     </li>
                 </ul>
             </div>
@@ -75,8 +73,37 @@
             <a href="#clients">Request</a>
             <a href="#contact">Schedule</a>
         </div> -->
-        <div class="main">
-            <div id="jobs">
+        <div class="container">
+            <div class="tabs">
+                <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="print-tab"
+                            data-toggle="tab" role="tab"
+                            aria-controls="PrintList" href="#PrintList"
+                            area-selected="true">Print Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="design-tab" data-toggle="tab"
+                            href="#GReqPrintList" aria-controls" GReqPrintList"
+                            aria-selected="false">Graphic Design
+                            Request</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="all-tab" data-toggle="tab"
+                            href="#AllReqPrintList"
+                            aria-controls="AllReqPrintList"
+                            aria-selected="false">All Request</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div id="PrintList" class="tab-pane fade show active"
+                        role="tabpanel" aria-labelledby="print-tab"></div>
+                    <div id="GReqPrintList" class="tab-pane fade"
+                        role="tabpanel" aria-labelledby="design-tab"></div>
+                    <div id="AllReqPrintList" class="tab-pane fade"
+                        role="tabpanel" aria-labelledby="all-tab"></div>
+                </div>
             </div>
         </div>
 
@@ -85,6 +112,12 @@
             function signOut() {
                 var auth2 = gapi.auth2.getAuthInstance();
                 auth2.signOut().then(function () {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'https://source-web.herokuapp.com/signout/');
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.responseType = "json"
+                    xhr.send('id=' + window.localStorage.getItem("id"));
+                    xhr.onload = function(e) {console.log(e.response)}
                     console.log('User signed out.');
                     $(location).attr('href', './index.html');
                 });
@@ -97,6 +130,8 @@
                 });
             }
         </script>
-        <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+        <script src="js/PrintList.js"></script>
+        <script src="https://apis.google.com/js/platform.js?onload=onLoad" async
+            defer></script>
     </body>
 </html>

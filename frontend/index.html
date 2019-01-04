@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Fresca" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css" />
     <link href="bower_components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
-    <script src="https://apis.google.com/js/platform.js?onLoad=window.onbeforeunload" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onLoad=signout" async defer></script>
     <link href="bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -81,7 +81,7 @@
                         <button type="submit" class="btn btn-success btn-block">
                             <span class="glyphicon glyphicon-off"></span> Login</button> -->
                         
-                            <div class="g-signin2 my-2" data-width="400px" data-theme="dark" data-longtitle="true" data-onsuccess="onSignIn"></div>
+                            <div class="g-signin2" data-width="400px" data-theme="dark" data-longtitle="true" data-onsuccess="onSignIn"></div>
                     </form>
                     <!--
           <a class="g-signin2 btn btn-block btn-social btn-google my-2 text-center" style="color: white" data-onsuccess="onSignIn">
@@ -93,9 +93,7 @@
 </div>
 <div class="modal-footer">
     <button type="submit" class="btn btn-danger btn-default mr-auto" data-dismiss="modal">Cancel</button>
-    <p>Forgot
-        <a href="#">Password?</a>
-    </p>
+
 </div>
 </div>
 
@@ -116,7 +114,7 @@
 
 <script  type="text/javascript" src="./js/script.js" async defer></script>
 <script type="text/javascript">
-      window.onbeforeunload = function(e){
+      function signout(e){
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             console.log('User signed out.');

@@ -26,62 +26,54 @@ public final class App {
 
         Map<String, String> env = System.getenv();
 
+        Map<String, String> cache = new HashMap<>();
+
         Spark.staticFileLocation("/frontend");
 
-        // String cors_enabled = env.get("CORS_ENABLED");
-        // System.out.println(cors_enabled);
-        // if (cors_enabled.equals("True")) {
-        //     final String acceptCrossOriginRequestsFrom = "*";
-        //     final String acceptedCrossOriginRoutes = "GET,PUT,POST,DELETE,OPTIONS";
-        //     final String supportedRequestHeaders = "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin";
-        //     enableCORS(acceptCrossOriginRequestsFrom, acceptedCrossOriginRoutes, supportedRequestHeaders);
-        // }
+        String cors_enabled = env.get("CORS_ENABLED");
+        System.out.println(cors_enabled);
+        if (cors_enabled.equals("True")) {
+            final String acceptCrossOriginRequestsFrom = "*";
+            final String acceptedCrossOriginRoutes = "GET,PUT,POST,DELETE,OPTIONS";
+            final String supportedRequestHeaders = "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin";
+            enableCORS(acceptCrossOriginRequestsFrom, acceptedCrossOriginRoutes, supportedRequestHeaders);
+        }
         final Gson gson = new Gson();
 
         // Verifying the integrity of the google token
         Spark.post("/oauth/callback", (req, res) -> {
-            System.out.println("Got here");
+            //System.out.println("Got here");
             String idtoken = req.queryParams("idtoken");
+                        
             HttpTransport transport = new NetHttpTransport();
             com.google.api.client.json.JsonFactory jsonFactory = new com.google.api.client.json.jackson2.JacksonFactory();
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
                     // Specify the CLIENT_ID of the app that accesses the backend:
-                    .setAudience(Collections.singletonList("463395064610-5k6r1ilnlg08qv18rkdp95fp4jadmsk1.apps.googleusercontent.com"
-                    ))
+                    .setAudience(Collections.singletonList("463395064610-5k6r1ilnlg08qv18rkdp95fp4jadmsk1.apps.googleusercontent.com"))
                     // Or, if multiple clients access the backend:
                     // .setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
                     .build();
-
-            // (Receive idTokenString by HTTPS POST)
-
+            
+            //(Receive idTokenString by HTTPS POST)
             GoogleIdToken idToken = verifier.verify(idtoken);
+            
             if (idToken != null) {
                 Payload payload = idToken.getPayload();
-
                 // Print user identifier
                 String userId = payload.getSubject();
-                System.out.println("User ID: " + userId);
-
-                // Get profile information from payload
-                // String email = payload.getEmail();
-                // boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-                // String name = (String) payload.get("name");
-                // String pictureUrl = (String) payload.get("picture");
-                // String locale = (String) payload.get("locale");
-                // String familyName = (String) payload.get("family_name");
-                // String givenName = (String) payload.get("given_name");
-                    String email = payload.getEmail();
-                    //boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-                    // String name = (String) payload.get("name");
-                    // String pictureUrl = (String) payload.get("picture");
-                    // //String locale = (String) payload.get("locale");
-                    // String familyName = (String) payload.get("family_name");
-                    // String givenName = (String) payload.get("given_name");
-                    final String address = "insource@lehigh.edu";
-                    if (payload.getHostedDomain().contains("lehigh.edu") && email.equals(address)) {
-                        res.status(200);
-                        return gson.toJson(new StructuredResponse("ok", "received token, success sign in", null));                    }
+                //System.out.println("User ID: " + userId);
+                String generatedId = getSaltString();
+                while (cache.containsKey(generatedId))
+                    generatedId = getSaltString();
                 
+                cache.put(generatedId, userId);
+                String email = payload.getEmail();
+                final String address = "insource@lehigh.edu";
+                if (payload.getHostedDomain().contains("lehigh.edu") && email.equals(address)) {
+                    res.status(200);
+                    return gson.toJson(new StructuredResponse("ok", "received token, success sign in", generatedId));
+                }
+
             } else {
                 System.out.println("Invalid ID token.");
             }
@@ -89,7 +81,15 @@ public final class App {
             return gson.toJson(new StructuredResponse("not allowed", "user not allowed", null));
         });
 
-        Spark.get("/getJobs", (req, res) -> {
+        Spark.get("/getJobs/:id", (req, res) -> {
+            String userCode = req.params("id");
+            System.out.println(userCode);
+            if (!cache.containsKey(userCode)) {
+                res.status(200);
+                return gson.toJson(new StructuredResponse("nok", "User not allowed", null));
+            }
+
+            String userId = cache.get(userCode);
             final String id = "1WzcrGKU__d9I0CCG9GD3S-AR8GJVDSx0k4L0qQhsOk8";
             GoogleSheets curJob = new GoogleSheets(id);
             List<PrintJobRes> resp = curJob.getAllCurrentPrintJobs();
@@ -101,6 +101,13 @@ public final class App {
             res.status(200);
             res.type("application/json");
             return gson.toJson(new StructuredResponse("ok", "No job found", null));
+        });
+        
+        Spark.post("/signout/:id", (req, res) -> {
+            String generatedId = req.queryParams("id");
+            cache.remove(generatedId);
+            res.status(200);
+            return gson.toJson(new StructuredResponse("ok", null, null));
         });
     }
 
@@ -146,5 +153,18 @@ public final class App {
             response.header("Access-Control-Request-Method", methods);
             response.header("Access-Control-Allow-Headers", headers);
         });
+    }
+
+    protected static String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 }
