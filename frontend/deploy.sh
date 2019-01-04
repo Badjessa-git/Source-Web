@@ -25,6 +25,7 @@ cp -r ./css/ $TARGETFOLDER/$WEBFOLDERNAME/css/
 #Compiling our handlebars and typescript
 echo 'Compiling files'
 node_modules/handlebars/bin/handlebars ./hb/PrintList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars hb/EntryItem.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 node_modules/typescript/bin/tsc ./ts/PrintList.ts --strict --outFile $TARGETFOLDER/$WEBFOLDERNAME/js/PrintList.js
 
 #Copying all the libraries
@@ -34,7 +35,6 @@ cp node_modules/bootstrap/dist/js/bootstrap.min.js $TARGETFOLDER/$WEBFOLDERNAME
 cp node_modules/bootstrap/dist/css/bootstrap.min.css $TARGETFOLDER/$WEBFOLDERNAME
 cp -R node_modules/bootstrap/dist/fonts $TARGETFOLDER/$WEBFOLDERNAME
 cp -R bower_components $TARGETFOLDER/$WEBFOLDERNAME
-cp credentials.json $TARGETFOLDER
 cp source-web-226303-d47f6cf48e20.json $TARGETFOLDER
 cp node_modules/handlebars/dist/handlebars.min.js $TARGETFOLDER/$WEBFOLDERNAME
 

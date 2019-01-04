@@ -23,7 +23,7 @@
                         <td>{{this.club}}</td>
                         <td>{{this.color}}</td>
                         <td>{{this.timeStamp}}</td>
-                        <td><button class="PrintList-editbtn" data-toggle="modal" data-value="{{this.jobId}}">View/Edit</button></td>
+                        <td><button class="PrintList-editbtn" data-toggle="modal" data-target="#exampleModalCenter" data-value="{{this.jobId}}">View/Edit</button></td>
                     </tr>
                     {{/each}}
                 </tbody>

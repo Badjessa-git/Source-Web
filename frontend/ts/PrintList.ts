@@ -50,6 +50,12 @@ class PrintList {
             var values = JSON.parse(values2)
             let curEntry = values.mData[id-1];
             $("#"+PrintList.Item).html(Handlebars.templates[PrintList.Item+".hb"](curEntry))
+            if (curEntry.done == 0) {
+                $("#options").val('Not Completed')
+            } else {
+                $("#options").val('Completed')
+            }
+            $('#exampleModalCenter').modal('show')
         } else {
             console.log("Error getting the values")
         }
@@ -57,6 +63,8 @@ class PrintList {
 }
 
 $(document).ready(function() {
+    const userName = window.localStorage.getItem("userName");
+    $("p:first").html(userName);
     alljobform = new PrintList()
     alljobform.refresh()
 })
