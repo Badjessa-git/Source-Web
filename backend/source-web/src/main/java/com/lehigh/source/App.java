@@ -67,9 +67,7 @@ public final class App {
                     generatedId = getSaltString();
                 
                 cache.put(generatedId, userId);
-                String email = payload.getEmail();
-                final String address = "insource@lehigh.edu";
-                if (payload.getHostedDomain().contains("lehigh.edu") && email.equals(address)) {
+                if (payload.getHostedDomain().contains("lehigh.edu")) {
                     res.status(200);
                     return gson.toJson(new StructuredResponse("ok", "received token, success sign in", generatedId));
                 }

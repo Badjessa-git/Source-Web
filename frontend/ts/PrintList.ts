@@ -1,7 +1,10 @@
 const backendUrl2 = "https://source-web.herokuapp.com";
 var $ : any;
+let curEntry: any;
 var alljobform : PrintList;
 let Handlebars: any;
+let curId : any;
+const typeList = ["Not Completed", "Completed"]
 
 class PrintList {
 
@@ -48,16 +51,42 @@ class PrintList {
         var values2 = window.localStorage.getItem("values");
         if (values2) {
             var values = JSON.parse(values2)
-            let curEntry = values.mData[id-1];
+            curEntry = values.mData[id-1];
             $("#"+PrintList.Item).html(Handlebars.templates[PrintList.Item+".hb"](curEntry))
-            if (curEntry.done == 0) {
-                $("#options").val('Not Completed')
-            } else {
-                $("#options").val('Completed')
-            }
+            $("#options").val(typeList[curEntry.done])
+            $("."+PrintList.Item+"-editbtn").click(PrintList.updateItem);
+            window.localStorage.setItem("curItemId", id);
             $('#exampleModalCenter').modal('show')
         } else {
             console.log("Error getting the values")
+        }
+    }
+
+    private static updateItem() {
+        var updatedval = $("#options").val();
+        var value = typeList.indexOf(updatedval)
+        curId = window.localStorage.getItem("curItemId");
+        const values = JSON.parse(window.localStorage.getItem("values")).mData[curId-1]
+        if (value != values.done) {
+            $.ajax({
+                type: 'POST',
+                url: backendUrl2 + "/update" + value + ":" + curId,
+                dataType: 'json',
+                success: this.successUpdate,
+                failure: function(e) {
+                    console.log(e)
+                }
+            })
+        } 
+        
+    }
+
+    private static successUpdate(data: any) {
+        if (data.mStatus !== "ok") {
+            window.alert("Error updating element, please try at a different time");
+        } else {
+            window.alert("Update Successful")
+            $('#exampleModalCenter').modal('hide')
         }
     }
 }
