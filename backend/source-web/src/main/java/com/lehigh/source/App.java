@@ -79,8 +79,13 @@ public final class App {
             return gson.toJson(new StructuredResponse("not allowed", "user not allowed", null));
         });
 
-        Spark.get("/getJobs/:id", (req, res) -> {
+        /**
+         * Spark get that returns a json with all the print\
+         * @param requestType [ printrequest, graphicrequest, allrequest ]
+         */
+        Spark.get("/getJobs/:requestType/:id", (req, res) -> {
             String userCode = req.params("id");
+            String reqType = req.params("requestType");
             System.out.println(userCode);
             if (!cache.containsKey(userCode)) {
                 res.status(200);
@@ -88,19 +93,36 @@ public final class App {
             }
 
             String userId = cache.get(userCode);
-            final String id = "1WzcrGKU__d9I0CCG9GD3S-AR8GJVDSx0k4L0qQhsOk8";
-            GoogleSheets curJob = new GoogleSheets(id);
-            List<PrintJobRes> resp = curJob.getAllCurrentPrintJobs();
-            if (resp != null) {
-                res.status(200);
-                res.type("application/json");
-                return gson.toJson(new StructuredResponse("ok", null, resp));
+            switch(reqType) {
+                case "printrequest":
+                    final String id = "1WzcrGKU__d9I0CCG9GD3S-AR8GJVDSx0k4L0qQhsOk8";
+                    GoogleSheets curJob = new GoogleSheets(id);
+                    List<PrintJobRes> resp = curJob.getAllCurrentPrintJobs();
+                    if (resp != null) {
+                        res.status(200);
+                        res.type("application/json");
+                        return gson.toJson(new StructuredResponse("ok", null, resp));
+                    }
+                    res.status(200);
+                    res.type("application/json");
+                    return gson.toJson(new StructuredResponse("ok", "No job found", null));           
+                
+                case "graphicrequest":
+                    break;
+
+                case "allrequest":
+                    break;
+
+                default:
+                    res.status(200);
+                    res.type("application/json");
+                    return gson.toJson(new StructuredResponse("ok", "No job found", null));  
             }
-            res.status(200);
-            res.type("application/json");
-            return gson.toJson(new StructuredResponse("ok", "No job found", null));
+            return null;
         });
         
+
+
         Spark.post("/signout/:id", (req, res) -> {
             String generatedId = req.queryParams("id");
             cache.remove(generatedId);

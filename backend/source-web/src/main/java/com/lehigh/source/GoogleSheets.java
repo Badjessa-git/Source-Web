@@ -62,6 +62,8 @@ public class GoogleSheets {
 
         // LocalServerReceiver receiver = new LocalServerReceiver.Builder().build();
         // return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+
+        //Creating credential for a service account
         GoogleCredential credential = GoogleCredential.fromStream(in)
                                 .createScoped(SCOPES);
                                 
