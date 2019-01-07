@@ -12,14 +12,14 @@ import java.util.*;
     public String file_upload;
     public String email;
     //0 for black and white, 1 for color
-    public int color;
+    public String color;
     public int numCopies;
     public int done;
     public int jobId;
     public String timeStamp;
 
     public PrintJobRes(int jobId, String firstName, String lastName, String club,
-     String timeStamp, String file_upload, String email, int color,
+     String timeStamp, String file_upload, String email, String color,
      int numCopies, int done) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,8 +43,21 @@ import java.util.*;
         };
     }
 
+
+
     @Override
     public String toString() {
-        return this.timeStamp + " " + this.email + " " + this.lastName;
+        return "{" +
+            " firstName='" + firstName + "'" +
+            ", lastName='" + lastName + "'" +
+            ", club='" + club + "'" +
+            ", file_upload='" + file_upload + "'" +
+            ", email='" + email + "'" +
+            ", color='" + color + "'" +
+            ", numCopies='" + numCopies + "'" +
+            ", done='" + done + "'" +
+            ", jobId='" + jobId + "'" +
+            ", timeStamp='" + timeStamp + "'" +
+            "}";
     }
 }

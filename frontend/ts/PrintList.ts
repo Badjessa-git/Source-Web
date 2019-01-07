@@ -27,7 +27,7 @@ class PrintList {
         var generatedId = window.localStorage.getItem("id");
         $.ajax({
             type: 'GET',
-            url: backendUrl2 + '/getJobs/printrequest' + generatedId,
+            url: backendUrl2 + '/getJobs/printrequest/' + generatedId,
             dataType: 'json',
             success: this.update,
         })
@@ -73,7 +73,7 @@ class PrintList {
                 url: backendUrl2 + "/update/printrequest/" + value + ":" + curId,
                 dataType: 'json',
                 success: this.successUpdate,
-                failure: function(e) {
+                failure: function(e: any) {
                     console.log(e)
                 }
             })

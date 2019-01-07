@@ -4,7 +4,6 @@ import spark.Spark;
 import com.google.gson.*;
 import java.util.*;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.http.HttpTransport;
@@ -28,6 +27,8 @@ public final class App {
 
         Map<String, String> cache = new HashMap<>();
 
+        //Database db = Database.getDatabase(env);
+
         Spark.staticFileLocation("/frontend");
 
         String cors_enabled = env.get("CORS_ENABLED");
@@ -42,30 +43,31 @@ public final class App {
 
         // Verifying the integrity of the google token
         Spark.post("/oauth/callback", (req, res) -> {
-            //System.out.println("Got here");
+            // System.out.println("Got here");
             String idtoken = req.queryParams("idtoken");
-                        
+
             HttpTransport transport = new NetHttpTransport();
             com.google.api.client.json.JsonFactory jsonFactory = new com.google.api.client.json.jackson2.JacksonFactory();
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
                     // Specify the CLIENT_ID of the app that accesses the backend:
-                    .setAudience(Collections.singletonList("463395064610-5k6r1ilnlg08qv18rkdp95fp4jadmsk1.apps.googleusercontent.com"))
+                    .setAudience(Collections
+                            .singletonList("463395064610-5k6r1ilnlg08qv18rkdp95fp4jadmsk1.apps.googleusercontent.com"))
                     // Or, if multiple clients access the backend:
                     // .setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
                     .build();
-            
-            //(Receive idTokenString by HTTPS POST)
+
+            // (Receive idTokenString by HTTPS POST)
             GoogleIdToken idToken = verifier.verify(idtoken);
-            
+
             if (idToken != null) {
                 Payload payload = idToken.getPayload();
                 // Print user identifier
                 String userId = payload.getSubject();
-                //System.out.println("User ID: " + userId);
+                // System.out.println("User ID: " + userId);
                 String generatedId = getSaltString();
                 while (cache.containsKey(generatedId))
                     generatedId = getSaltString();
-                
+
                 cache.put(generatedId, userId);
                 if (payload.getHostedDomain().contains("lehigh.edu")) {
                     res.status(200);
@@ -80,49 +82,66 @@ public final class App {
         });
 
         /**
-         * Spark get that returns a json with all the print\
+         * Spark get that returns a json with all the printInformation
          * @param requestType [ printrequest, graphicrequest, allrequest ]
          */
-        Spark.get("/getJobs/:requestType/:id", (req, res) -> {
-            String userCode = req.params("id");
+        Spark.get("/getJobs/:requestType", (req, res) -> {
+            //String userCode = req.params("id");
             String reqType = req.params("requestType");
-            System.out.println(userCode);
-            if (!cache.containsKey(userCode)) {
+            // System.out.println(userCode);
+            // if (!cache.containsKey(userCode)) {
+            //     res.status(200);
+            //     return gson.toJson(new StructuredResponse("nok", "User not allowed", null));
+            // }
+            GoogleSheets curJob = new GoogleSheets();
+            switch (reqType) {
+            case "printrequest":
+                // final String id2 = db.getSpreadsheetKey("printrequest").toString();
+                final String printId = "1WzcrGKU__d9I0CCG9GD3S-AR8GJVDSx0k4L0qQhsOk8";
+                List<PrintJobRes> res1 = curJob.getAllCurrentPrintJobs(printId);
+                if (res1 != null) {
+                    res.status(200);
+                    res.type("application/json");
+                    return gson.toJson(new StructuredResponse("ok", null, res1));
+                }
                 res.status(200);
-                return gson.toJson(new StructuredResponse("nok", "User not allowed", null));
-            }
+                res.type("application/json");
+                return gson.toJson(new StructuredResponse("ok", "No job found", null));
 
-            String userId = cache.get(userCode);
-            switch(reqType) {
-                case "printrequest":
-                    final String id = "1WzcrGKU__d9I0CCG9GD3S-AR8GJVDSx0k4L0qQhsOk8";
-                    GoogleSheets curJob = new GoogleSheets(id);
-                    List<PrintJobRes> resp = curJob.getAllCurrentPrintJobs();
-                    if (resp != null) {
-                        res.status(200);
-                        res.type("application/json");
-                        return gson.toJson(new StructuredResponse("ok", null, resp));
-                    }
+            case "graphicrequest":
+                final String graphicId = "1wl44VsSzW3cGGW4lnZos0B2RpT56QDcCLMWiGEhE2us";
+                List<GraphicDesignRes> res2 = curJob.getAllGraphicDesignRes(graphicId);
+                if (res2 != null) {
                     res.status(200);
                     res.type("application/json");
-                    return gson.toJson(new StructuredResponse("ok", "No job found", null));           
-                
-                case "graphicrequest":
-                    break;
+                    return gson.toJson(new StructuredResponse("ok", null, res2));
+                }
+                res.status(200);
+                res.type("application/json");
+                return gson.toJson(new StructuredResponse("ok", "No job found", null));
 
-                case "allrequest":
-                    break;
-
-                default:
+            case "allrequest":
+                final String allReqId = "12jUfnLuM4QQZ_L96rdcn4xcJOexdLKamrPwm0sqrP3s";
+                List<AllRequestRes> res3 = curJob.getAllRequest(allReqId);
+                if (res3 != null) {
                     res.status(200);
                     res.type("application/json");
-                    return gson.toJson(new StructuredResponse("ok", "No job found", null));  
+                    return gson.toJson(new StructuredResponse("ok", null, res3));
+                }
+                res.status(200);
+                res.type("application/json");
+                return gson.toJson(new StructuredResponse("ok", "No job found", null));
+
+            default:
+                res.status(200);
+                res.type("application/json");
+                return gson.toJson(new StructuredResponse("ok", "No job found", null));
             }
-            return null;
         });
-        
 
-
+        /**
+         * Remove user from cache
+         */
         Spark.post("/signout/:id", (req, res) -> {
             String generatedId = req.queryParams("id");
             cache.remove(generatedId);
@@ -175,7 +194,7 @@ public final class App {
         });
     }
 
-    protected static String getSaltString() {
+    private static String getSaltString() {
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
