@@ -85,14 +85,14 @@ public final class App {
          * Spark get that returns a json with all the printInformation
          * @param requestType [ printrequest, graphicrequest, allrequest ]
          */
-        Spark.get("/getJobs/:requestType", (req, res) -> {
-            //String userCode = req.params("id");
+        Spark.get("/getJobs/:requestType/:id", (req, res) -> {
+            String userCode = req.params("id");
             String reqType = req.params("requestType");
-            // System.out.println(userCode);
-            // if (!cache.containsKey(userCode)) {
-            //     res.status(200);
-            //     return gson.toJson(new StructuredResponse("nok", "User not allowed", null));
-            // }
+            System.out.println(userCode);
+            if (!cache.containsKey(userCode)) {
+                res.status(200);
+                return gson.toJson(new StructuredResponse("nok", "User not allowed", null));
+            }
             GoogleSheets curJob = new GoogleSheets();
             switch (reqType) {
             case "printrequest":
