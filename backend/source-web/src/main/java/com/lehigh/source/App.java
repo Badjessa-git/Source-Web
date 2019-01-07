@@ -27,7 +27,7 @@ public final class App {
 
         Map<String, String> cache = new HashMap<>();
 
-        //Database db = Database.getDatabase(env);
+        Database db = Database.getDatabase(env);
 
         Spark.staticFileLocation("/frontend");
 
@@ -88,7 +88,6 @@ public final class App {
         Spark.get("/getJobs/:requestType/:id", (req, res) -> {
             String userCode = req.params("id");
             String reqType = req.params("requestType");
-            System.out.println(userCode);
             if (!cache.containsKey(userCode)) {
                 res.status(200);
                 return gson.toJson(new StructuredResponse("nok", "User not allowed", null));
@@ -96,8 +95,7 @@ public final class App {
             GoogleSheets curJob = new GoogleSheets();
             switch (reqType) {
             case "printrequest":
-                // final String id2 = db.getSpreadsheetKey("printrequest").toString();
-                final String printId = "1WzcrGKU__d9I0CCG9GD3S-AR8GJVDSx0k4L0qQhsOk8";
+                final String printId = db.getSpreadsheetKey("printrequest");
                 List<PrintJobRes> res1 = curJob.getAllCurrentPrintJobs(printId);
                 if (res1 != null) {
                     res.status(200);
@@ -109,7 +107,7 @@ public final class App {
                 return gson.toJson(new StructuredResponse("ok", "No job found", null));
 
             case "graphicrequest":
-                final String graphicId = "1wl44VsSzW3cGGW4lnZos0B2RpT56QDcCLMWiGEhE2us";
+                final String graphicId = db.getSpreadsheetKey("graphicrequest");
                 List<GraphicDesignRes> res2 = curJob.getAllGraphicDesignRes(graphicId);
                 if (res2 != null) {
                     res.status(200);
@@ -121,7 +119,7 @@ public final class App {
                 return gson.toJson(new StructuredResponse("ok", "No job found", null));
 
             case "allrequest":
-                final String allReqId = "12jUfnLuM4QQZ_L96rdcn4xcJOexdLKamrPwm0sqrP3s";
+                final String allReqId = db.getSpreadsheetKey("allrequest");
                 List<AllRequestRes> res3 = curJob.getAllRequest(allReqId);
                 if (res3 != null) {
                     res.status(200);
@@ -195,7 +193,7 @@ public final class App {
     }
 
     private static String getSaltString() {
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        String SALTCHARS = "_?$abcdefghijklmnopqrstuvxwyz1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
         while (salt.length() < 18) { // length of the random string.
@@ -203,7 +201,5 @@ public final class App {
             salt.append(SALTCHARS.charAt(index));
         }
         String saltStr = salt.toString();
-        return saltStr;
-
-    }
+        return saltStr;    }
 }

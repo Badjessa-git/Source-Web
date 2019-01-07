@@ -14,16 +14,27 @@ var PrintList = /** @class */ (function () {
      * This will create the table that we will use in the table
      */
     PrintList.prototype.init = function () {
-        this.refresh();
+        this.refreshPrintJob();
         PrintList.isInit = true;
     };
-    PrintList.prototype.refresh = function () {
+    PrintList.prototype.refreshPrintJob = function () {
         var generatedId = window.localStorage.getItem("id");
         $.ajax({
             type: 'GET',
             url: backendUrl2 + '/getJobs/printrequest/' + generatedId,
             dataType: 'json',
             success: this.update
+        });
+    };
+    PrintList.prototype.refreshGraphicWork = function () {
+        var generatedId = window.localStorage.getItem("id");
+        var values2 = window.localStorage.getItem("values");
+        if (values2) {
+            window.localStorage.removeItem("values");
+        }
+        $.ajax({
+            type: 'GET',
+            url: backendUrl2 + '/getJobs/graphicrequest/' + generatedId
         });
     };
     PrintList.prototype.update = function (data) {
@@ -90,5 +101,5 @@ $(document).ready(function () {
     var userName = window.localStorage.getItem("userName");
     $("p:first").html(userName);
     alljobform = new PrintList();
-    alljobform.refresh();
+    alljobform.refreshPrintJob();
 });

@@ -22,6 +22,8 @@ node_modules/typescript/bin/tsc ./ts/PrintList.ts --strict --outFile $TARGETFOLD
 cp node_modules/handlebars/dist/handlebars.min.js $TARGETFOLDER/$WEBFOLDERNAME
 node_modules/handlebars/bin/handlebars hb/PrintList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 node_modules/handlebars/bin/handlebars hb/EntryItem.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars hb/GraphicList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars hb/GraphicItem.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 cp node_modules/jquery/dist/jquery.min.js $TARGETFOLDER
 cp -r ./raw/ $TARGETFOLDER/raw/
 cp -r ./js/*.js $TARGETFOLDER/js/

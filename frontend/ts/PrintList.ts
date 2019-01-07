@@ -10,6 +10,8 @@ class PrintList {
 
     private static readonly Name = "PrintList"
     private static readonly Item = "EntryItem"
+    private static readonly Graphic = "GraphicList"
+    private static readonly GrahicItem = "GraphicItem"
     private static isInit = false;
 
     constructor() {
@@ -19,11 +21,10 @@ class PrintList {
      * This will create the table that we will use in the table
      */
     private init() {
-        this.refresh();
         PrintList.isInit = true;
     } 
 
-    public refresh() {
+    public refreshPrintJob() {
         var generatedId = window.localStorage.getItem("id");
         $.ajax({
             type: 'GET',
@@ -32,7 +33,33 @@ class PrintList {
             success: this.update,
         })
     }
+
+    public refreshGraphicWork() {
+        var generatedId = window.localStorage.getItem("id");
+        var values2 = window.localStorage.getItem("values");
+        if (values2) {
+            window.localStorage.removeItem("values");
+        }
+        $.ajax({
+            type: 'GET',
+            url: backendUrl2 + '/getJobs/graphicrequest/' + generatedId,
+            dataType: 'json',
+            success: this.updateGraphic,
+        })
+    }
     
+    private updateGraphic(data: any) {
+        if (data.mStatus === "ok") {
+            $("#"+PrintList.Graphic).html(Handlebars.templates[PrintList.Graphic+".hb"](data))
+            $("." + PrintList.Graphic + "-editbtn").click(PrintList.editGraphic);
+            window.localStorage.setItem("values", JSON.stringify(data));
+
+        } else {
+            window.localStorage.clear();
+            window.alert("You are not logged in, please log in to use our services")
+            $(location).attr('href', './index.html');
+        }
+    }
     private update(data: any) {
         /// If user is authenticated
         if (data.mStatus === "ok") {
@@ -44,6 +71,10 @@ class PrintList {
             window.alert("You are not logged in, please log in to use our services")
             $(location).attr('href', './index.html');
         }
+    }
+    
+    private static editGraphic() {
+
     }
 
     private static clickEdit() {
@@ -66,7 +97,7 @@ class PrintList {
         var updatedval = $("#options").val();
         var value = typeList.indexOf(updatedval)
         curId = window.localStorage.getItem("curItemId");
-        const values = JSON.parse(window.localStorage.getItem("values")).mData[curId-1]
+        const values = JSON.parse(window.localStorage.getItem("values")).mData[curId-1];
         if (value != values.done) {
             $.ajax({
                 type: 'POST',
@@ -95,5 +126,11 @@ $(document).ready(function() {
     const userName = window.localStorage.getItem("userName");
     $("p:first").html(userName);
     alljobform = new PrintList()
-    alljobform.refresh()
+    $('#myTab li:first-child a').tab('show')
+    $("#myTab li:first-child a").on('shown.bs.tab', function(e: any) {
+        alljobform.refreshPrintJob()
+    })
+    $("#myTab li:first-child a").on('shown.bs.tab', function(e: any) {
+        alljobform.refreshGraphicWork()
+    })
 })

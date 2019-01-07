@@ -81,8 +81,7 @@ public class Database {
         ResultSet res = dGetKey.executeQuery();
         if (res != null) {
           res.next();
-          System.out.print(res.toString());
-          String key = res.getString(1);
+          String key = res.getString(1).trim();
           return key;
         }
       } catch (SQLException e) {
