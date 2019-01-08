@@ -193,7 +193,7 @@ public final class App {
     }
 
     private static String getSaltString() {
-        String SALTCHARS = "_?$abcdefghijklmnopqrstuvxwyz1234567890";
+        String SALTCHARS = "_$abcdefghijklmnopqrstuvxwyz1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
         while (salt.length() < 18) { // length of the random string.

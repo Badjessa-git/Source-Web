@@ -8,10 +8,11 @@ const typeList = ["Not Completed", "Completed"]
 
 class PrintList {
 
-    private static readonly Name = "PrintList"
+    public static readonly Name = "PrintList"
     private static readonly Item = "EntryItem"
-    private static readonly Graphic = "GraphicList"
+    public static readonly Graphic = "GraphicList"
     private static readonly GrahicItem = "GraphicItem"
+    public static readonly Request = "RequestList"
     private static isInit = false;
 
     constructor() {
@@ -26,6 +27,10 @@ class PrintList {
 
     public refreshPrintJob() {
         var generatedId = window.localStorage.getItem("id");
+        var values2 = window.localStorage.getItem("values");
+        if (values2) {
+            window.localStorage.removeItem("values");
+        }
         $.ajax({
             type: 'GET',
             url: backendUrl2 + '/getJobs/printrequest/' + generatedId,
@@ -48,6 +53,31 @@ class PrintList {
         })
     }
     
+    public refreshRequests() {
+        var generatedId = window.localStorage.getItem("id");
+        var values2 = window.localStorage.getItem("values");
+        if (values2) {
+            window.localStorage.removeItem("values");
+        }
+        $.ajax({
+            type: 'GET',
+            url: backendUrl2 + '/getJobs/allrequest/' + generatedId,
+            dataType: 'json',
+            success: this.updateRequest,
+        })
+    }
+
+    private updateRequest(data: any) {
+        if (data.mStatus === "ok") {
+            $("#"+PrintList.Request).html(Handlebars.templates[PrintList.Request+".hb"](data))
+            window.localStorage.setItem("values", JSON.stringify(data));
+
+        } else {
+            window.localStorage.clear();
+            window.alert("You are not logged in, please log in to use our services")
+            $(location).attr('href', './index.html');
+        }
+    }
     private updateGraphic(data: any) {
         if (data.mStatus === "ok") {
             $("#"+PrintList.Graphic).html(Handlebars.templates[PrintList.Graphic+".hb"](data))
@@ -65,7 +95,7 @@ class PrintList {
         if (data.mStatus === "ok") {
             window.localStorage.setItem("values", JSON.stringify(data));
             $("#"+PrintList.Name).html(Handlebars.templates[PrintList.Name+".hb"](data))
-            $("." + PrintList.Name + "-editbtn").click(PrintList.clickEdit);
+            $("." + PrintList.Name + "-editbtn").click(PrintList.editPrintJob);
         } else {
             window.localStorage.clear();
             window.alert("You are not logged in, please log in to use our services")
@@ -74,10 +104,22 @@ class PrintList {
     }
     
     private static editGraphic() {
-
+        let id = $(this).data("value");
+        var values2 = window.localStorage.getItem("values");
+        if (values2) {
+            var values = JSON.parse(values2)
+            curEntry = values.mData[id-1];
+            $("#"+PrintList.GrahicItem).html(Handlebars.templates[PrintList.GrahicItem+".hb"](curEntry))
+           //$("#options").val(typeList[curEntry.done])
+            $("."+PrintList.GrahicItem+"-editbtn").click(PrintList.updateItem);
+            window.localStorage.setItem("curItemId", id);
+            $('#exampleModalCenter2').modal('show')
+        } else {
+            console.log("Error getting the values")
+        }
     }
 
-    private static clickEdit() {
+    private static editPrintJob() {
         let id = $(this).data("value");
         var values2 = window.localStorage.getItem("values");
         if (values2) {
@@ -97,7 +139,7 @@ class PrintList {
         var updatedval = $("#options").val();
         var value = typeList.indexOf(updatedval)
         curId = window.localStorage.getItem("curItemId");
-        const values = JSON.parse(window.localStorage.getItem("values")).mData[curId-1];
+        let values = JSON.parse(window.localStorage.getItem("values")).mData[curId-1];
         if (value != values.done) {
             $.ajax({
                 type: 'POST',
@@ -126,11 +168,20 @@ $(document).ready(function() {
     const userName = window.localStorage.getItem("userName");
     $("p:first").html(userName);
     alljobform = new PrintList()
-    $('#myTab li:first-child a').tab('show')
-    $("#myTab li:first-child a").on('shown.bs.tab', function(e: any) {
-        alljobform.refreshPrintJob()
-    })
-    $("#myTab li:first-child a").on('shown.bs.tab', function(e: any) {
-        alljobform.refreshGraphicWork()
+    alljobform.refreshPrintJob();
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e: any) {
+        var curTab = e.target // newly activated tab
+        let curPanel = curTab.getAttribute("href").substring(1);
+        switch (curPanel) {
+            case PrintList.Name:
+                alljobform.refreshPrintJob();
+                break;
+            case PrintList.Graphic:
+                alljobform.refreshGraphicWork();
+                break;
+            case PrintList.Request:
+                alljobform.refreshRequests();
+                break;
+        }
     })
 })

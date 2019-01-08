@@ -119,7 +119,7 @@ public class GoogleSheets {
      * @param sheetId id of the spreadsheet
      */
     public synchronized List<GraphicDesignRes> getAllGraphicDesignRes(final String sheetId) {
-        final String range = "Form Responses 1!";
+        final String range = "Form Responses 1";
         try {
             // final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();        
             // Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))

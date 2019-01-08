@@ -13,13 +13,13 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="firstname">Firstname</label>
-                        <input class="form-control" type="text" name="firstname" id="firstname" value={{this.firstName}} readonly/>
+                        <input class="form-control" type="text" name="firstname" id="firstname" value="{{this.firstName}}" readonly/>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="lastname">Lastname</label>
-                        <input class="form-control" type="text" name="lastname" id="lastname" value={{this.lastName}} readonly/>
+                        <input class="form-control" type="text" name="lastname" id="lastname" value="{{this.lastName}}" readonly/>
                     </div>
                 </div>
             </div>
@@ -29,19 +29,19 @@
             </div>
             <div class="form-group">
                 <label for="club_orgs">Club/Orgnization</label>
-                <input class="form-control" type="text" name="club_orgs" id="club_orgs" value={{this.club}} readonly/>
+                <input class="form-control" type="text" name="club_orgs" id="club_orgs" value="{{this.club}}" readonly/>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="form-group">
                         <label for="color">Color</label>
-                        <input class="form-control" type="text" name="color" id="color" value={{this.color}} readonly/>
+                        <input class="form-control" type="text" name="color" id="color" value="{{this.color}}" readonly/>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group" id="num_copies">
                         <label for="num_copies">Number of Copies</label>
-                        <input class="form-control" type="text" name="num_copies" id="num_copies" value={{this.numCopies}} readonly/>
+                        <input class="form-control" type="text" name="num_copies" id="num_copies" value="{{this.numCopies}}" readonly/>
                     </div>
                 </div>
             </div>

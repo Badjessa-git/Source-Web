@@ -93,14 +93,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="design-tab" data-toggle="tab"
-                            href="#GReqPrintList" aria-controls" GReqPrintList"
+                            href="#GraphicList" aria-controls" GraphicList"
                             aria-selected="false">Graphic Design
                             Request</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="all-tab" data-toggle="tab"
-                            href="#AllReqPrintList"
-                            aria-controls="AllReqPrintList"
+                            href="#RequestList"
+                            aria-controls="RequestList"
                             aria-selected="false">All Request</a>
                     </li>
                 </ul>
@@ -108,22 +108,24 @@
                 <div class="tab-content" id="myTabContent">
                     <div id="PrintList" class="tab-pane fade show active"
                         role="tabpanel" aria-labelledby="print-tab"></div>
-                    <div id="GReqPrintList" class="tab-pane fade"
+                    <div id="GraphicList" class="tab-pane fade"
                         role="tabpanel" aria-labelledby="design-tab"></div>
-                    <div id="AllReqPrintList" class="tab-pane fade"
+                    <div id="RequestList" class="tab-pane fade"
                         role="tabpanel" aria-labelledby="all-tab"></div>
                 </div>
             </div>
-            <div id="EntryItem"></div>
         </div>
-
+        <div id="EntryItem"></div>
+        <div id="GraphicItem"></div>
+        <div id="RequestItem"></div>
         <script src="./js/script.js" async defer></script>
         <script>
             function signOut() {
                 var auth2 = gapi.auth2.getAuthInstance();
                 auth2.signOut().then(function () {
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'https://source-web.herokuapp.com/signout/');
+                    var id = window.localStorage.getItem("id");
+                    xhr.open('POST', 'https://source-web.herokuapp.com/signout/'+id);
                     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     xhr.responseType = "json"
                     xhr.send('id=' + window.localStorage.getItem("id"));

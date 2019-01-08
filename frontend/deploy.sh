@@ -26,6 +26,9 @@ cp -r ./css/ $TARGETFOLDER/$WEBFOLDERNAME/css/
 echo 'Compiling files'
 node_modules/handlebars/bin/handlebars ./hb/PrintList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 node_modules/handlebars/bin/handlebars ./hb/EntryItem.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars hb/GraphicList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars hb/GraphicItem.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars hb/RequestList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 node_modules/typescript/bin/tsc ./ts/PrintList.ts --strict --outFile $TARGETFOLDER/$WEBFOLDERNAME/js/PrintList.js
 
 #Copying all the libraries

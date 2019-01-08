@@ -24,6 +24,7 @@ node_modules/handlebars/bin/handlebars hb/PrintList.hb >> $TARGETFOLDER/$WEBFOLD
 node_modules/handlebars/bin/handlebars hb/EntryItem.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 node_modules/handlebars/bin/handlebars hb/GraphicList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 node_modules/handlebars/bin/handlebars hb/GraphicItem.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars hb/RequestList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 cp node_modules/jquery/dist/jquery.min.js $TARGETFOLDER
 cp -r ./raw/ $TARGETFOLDER/raw/
 cp -r ./js/*.js $TARGETFOLDER/js/
