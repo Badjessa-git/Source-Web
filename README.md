@@ -1,4 +1,4 @@
-# Source-Web
+# Source Web Application (JAVA BACKEND)
 
 This repository contains files regarding the webpage of the Student Organization and Resource Center 
 at the source.
