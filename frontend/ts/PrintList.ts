@@ -24,7 +24,8 @@ class PrintList {
     private init() {
         PrintList.isInit = true;
     } 
-
+    
+    //Send a request to the back end to retrieve all of the submitted printjobs
     public refreshPrintJob() {
         var generatedId = window.localStorage.getItem("id");
         var values2 = window.localStorage.getItem("values");
@@ -38,7 +39,8 @@ class PrintList {
             success: this.update,
         })
     }
-
+    
+    // This function will make a get request to the backend to retrieve all of the graphic design request that were added
     public refreshGraphicWork() {
         var generatedId = window.localStorage.getItem("id");
         var values2 = window.localStorage.getItem("values");
@@ -53,6 +55,7 @@ class PrintList {
         })
     }
     
+    //Send an Ajax response to get all of the item of request
     public refreshRequests() {
         var generatedId = window.localStorage.getItem("id");
         var values2 = window.localStorage.getItem("values");
@@ -67,9 +70,11 @@ class PrintList {
         })
     }
 
+    //Update the table on the html page with the values returned from the call
     private updateRequest(data: any) {
         if (data.mStatus === "ok") {
             $("#"+PrintList.Request).html(Handlebars.templates[PrintList.Request+".hb"](data))
+            $("." + PrintList.Request + "-clubMonthbtn").click(PrintList.getTopClubs);
             window.localStorage.setItem("values", JSON.stringify(data));
 
         } else {
@@ -78,6 +83,8 @@ class PrintList {
             $(location).attr('href', './index.html');
         }
     }
+
+    //Same as top
     private updateGraphic(data: any) {
         if (data.mStatus === "ok") {
             $("#"+PrintList.Graphic).html(Handlebars.templates[PrintList.Graphic+".hb"](data))
@@ -152,6 +159,24 @@ class PrintList {
             })
         } 
         
+    }
+
+    //Make a call to get all of the top clubs
+    private static getTopClubs() {
+        var generatedId = window.localStorage.getItem("id");
+
+        $.ajax({
+            type: 'GET',
+            url: backendUrl2 + '/clubs/' + generatedId,
+            dataType: 'JSON',
+            success: this.returnClubs
+        })
+    }
+
+    private static returnClubs(data: any) {
+        if (data.mStatus === "ok") {
+            console.log(data.mData);
+        }
     }
 
     private static successUpdate(data: any) {

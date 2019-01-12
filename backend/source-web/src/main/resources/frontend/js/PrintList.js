@@ -16,6 +16,7 @@ var PrintList = /** @class */ (function () {
     PrintList.prototype.init = function () {
         PrintList.isInit = true;
     };
+    //Send a request to the back end to retrieve all of the submitted printjobs
     PrintList.prototype.refreshPrintJob = function () {
         var generatedId = window.localStorage.getItem("id");
         var values2 = window.localStorage.getItem("values");
@@ -29,6 +30,7 @@ var PrintList = /** @class */ (function () {
             success: this.update
         });
     };
+    // This function will make a get request to the backend to retrieve all of the graphic design request that were added
     PrintList.prototype.refreshGraphicWork = function () {
         var generatedId = window.localStorage.getItem("id");
         var values2 = window.localStorage.getItem("values");
@@ -42,6 +44,7 @@ var PrintList = /** @class */ (function () {
             success: this.updateGraphic
         });
     };
+    //Send an Ajax response to get all of the item of request
     PrintList.prototype.refreshRequests = function () {
         var generatedId = window.localStorage.getItem("id");
         var values2 = window.localStorage.getItem("values");
@@ -55,9 +58,11 @@ var PrintList = /** @class */ (function () {
             success: this.updateRequest
         });
     };
+    //Update the table on the html page with the values returned from the call
     PrintList.prototype.updateRequest = function (data) {
         if (data.mStatus === "ok") {
             $("#" + PrintList.Request).html(Handlebars.templates[PrintList.Request + ".hb"](data));
+            $("." + PrintList.Request + "-clubMonthbtn").click(PrintList.getTopClubs);
             window.localStorage.setItem("values", JSON.stringify(data));
         }
         else {
@@ -66,6 +71,7 @@ var PrintList = /** @class */ (function () {
             $(location).attr('href', './index.html');
         }
     };
+    //Same as top
     PrintList.prototype.updateGraphic = function (data) {
         if (data.mStatus === "ok") {
             $("#" + PrintList.Graphic).html(Handlebars.templates[PrintList.Graphic + ".hb"](data));
@@ -138,6 +144,21 @@ var PrintList = /** @class */ (function () {
                     console.log(e);
                 }
             });
+        }
+    };
+    //Make a call to get all of the top clubs
+    PrintList.getTopClubs = function () {
+        var generatedId = window.localStorage.getItem("id");
+        $.ajax({
+            type: 'GET',
+            url: backendUrl2 + '/clubs/' + generatedId,
+            dataType: 'JSON',
+            success: this.returnClubs
+        });
+    };
+    PrintList.returnClubs = function (data) {
+        if (data.mStatus === "ok") {
+            console.log(data.mData);
         }
     };
     PrintList.successUpdate = function (data) {

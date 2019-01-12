@@ -142,7 +142,7 @@ public class GoogleSheets {
                         count++;
                         continue;
                     }
-                    System.out.println(row.toString());
+                    //System.out.println(row.toString());
                     int jobId = count;
                     String timeStamp = (String) row.get(0);
                     String email = (String) row.get(1);
@@ -210,7 +210,8 @@ public class GoogleSheets {
                         String posRes = (String) row.get(6);
                         String otherRes = "";
                         String resource = "";
-                        System.out.println(row.size());
+                        //System.out.println(row.size());
+                        //Check in case, theres an empty column at the end of the sheet
                         if (row.size() > 7) {
                             otherRes = (String) row.get(7);
                             resource = otherRes;
@@ -231,6 +232,11 @@ public class GoogleSheets {
             return null;
     }
 
+    /**
+     * Split the string of links thats given into a list of links which is then returned
+     * @param stringLinks the string containing all the links
+     * @return the List of String after treating the string
+     */
     public List<String> convertToList(String stringLinks) {
         if (stringLinks.isEmpty()) {
             return new ArrayList<>();

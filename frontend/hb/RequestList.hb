@@ -5,7 +5,7 @@
             <h2 class="panel-title my-2">All Resource Sign Out</h2>
             </div>
             <div class="col">
-            <button class="PrintList-clubMonthbtn pull-right btn-primary">Top Clubs of the Month</button>
+            <button class="RequestList-clubMonthbtn pull-right btn-primary">Top Clubs of the Month</button>
             </div>
         </div>
     </div>

@@ -36,8 +36,64 @@
             src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
-        <meta name="google-signin-client_id"
-            content="463395064610-5k6r1ilnlg08qv18rkdp95fp4jadmsk1.apps.googleusercontent.com">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+        <script src="https://apis.google.com/js/api:client.js"></script>
+        <script>
+            var googleUser = {};
+            var startApp = function() {
+                gapi.load('auth2', function() {
+                    auth2 = gapi.auth2.init({
+                        client_id: '463395064610-5k6r1ilnlg08qv18rkdp95fp4jadmsk1.apps.googleusercontent.com',
+                        cookiepolicy: 'single_host_origin',
+                        scope : 'profile email'
+                    });
+                    attachSignin(document.getElementById('custom-signin'));
+                });
+            };  
+            function attachSignin(element) {
+                auth2.attachClickHandler(element, {},
+                    function(googleUser) {
+                        console.log("User log in")
+                        onSignIn(googleUser);
+                    }, function(error) {
+                        alert(JSON.stringify(error, undefined, 2));
+                    });
+            }
+        </script>
+        <style type="text/css">
+            #customBtn {
+              display: inline-block;
+              background: white;
+              color: #444;
+              width: 190px;
+              border-radius: 5px;
+              border: thin solid #888;
+              box-shadow: 1px 1px 1px grey;
+              white-space: nowrap;
+            }
+            #customBtn:hover {
+              cursor: pointer;
+            }
+            span.label {
+              font-family: serif;
+              font-weight: normal;
+            }
+            span.icon {
+              background: url('/raw/btn_google_signin_dark_pressed_web@2x.png') transparent 5px 50% no-repeat;
+              display: inline-block;
+              vertical-align: middle;
+            }
+            span.buttonText {
+              display: inline-block;
+              vertical-align: middle;
+              padding-left: 42px;
+              padding-right: 42px;
+              font-size: 14px;
+              font-weight: bold;
+              /* Use the Roboto font that is loaded in the <head> */
+              font-family: 'Roboto', sans-serif;
+            }
+          </style>
     </head>
 
     <body role="document">
@@ -93,7 +149,14 @@
                         </div>
                         <button type="submit" class="btn btn-success btn-block">
                             <span class="glyphicon glyphicon-off"></span> Login</button> -->
-                            <div id="custom-signin"></div>
+                            <div id="gSignInWrapper">
+                                <span class="label">Sign in with:</span>
+                                <div id="custom-signin" class="customGPlusSignIn">
+                                  <span class="icon"></span>
+                                  <span class="buttonText">Google</span>
+                                </div>
+                              </div>
+                              <div id="name"></div>                        
                         </form>
                         <!--
           <a class="g-signin2 btn btn-block btn-social btn-google my-2 text-center" style="color: white" data-onsuccess="onSignIn">
@@ -131,25 +194,8 @@
                 <a href="./graphicreq.html" id="design" class="btn btn-primary btn-lg ml-3 my-2">Graphic Design Request</a>
         </div>
     </div>
-   <script type="text/javascript" src="./js/script.js" async defer></script>
-    <script type="text/javascript">
-        function onSuccess(googleUser) {
-            onSignIn(googleUser);
-        }  
-        function onFailure(error) {
-            console.log(error)
-        }
-        function renderButton() {
-            gapi.signin2.render('custom-signin', {
-                'scope': 'profile email',
-                'longtitle':true,
-                'theme':'dark',
-                'onsuccess':onSuccess,
-                'onfailure':onFailure
-            })
-        }
-    </script>
-            <script src="https://apis.google.com/js/platform.js?onload=renderButton"
-            async defer></script>
+    <script type="text/javascript" src="./js/script.js" async defer></script>
+    <script>startApp();</script>
+
 </body>
 </html>

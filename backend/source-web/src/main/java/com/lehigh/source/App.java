@@ -25,7 +25,7 @@ public final class App {
 
         Map<String, String> env = System.getenv();
 
-        Map<String, String> cache = new HashMap<>();
+        Map<String, Object> cache = new HashMap<>();
 
         Database db = Database.getDatabase(env);
 
@@ -89,7 +89,7 @@ public final class App {
             String userCode = req.params("id");
             String reqType = req.params("requestType");
             if (!cache.containsKey(userCode)) {
-                res.status(200);
+                res.status(404);
                 return gson.toJson(new StructuredResponse("nok", "User not allowed", null));
             }
             GoogleSheets curJob = new GoogleSheets();
@@ -124,6 +124,7 @@ public final class App {
                 if (res3 != null) {
                     res.status(200);
                     res.type("application/json");
+                    cache.put("request", res3);
                     return gson.toJson(new StructuredResponse("ok", null, res3));
                 }
                 res.status(200);
@@ -131,17 +132,50 @@ public final class App {
                 return gson.toJson(new StructuredResponse("ok", "No job found", null));
 
             default:
-                res.status(200);
+                res.status(404);
                 res.type("application/json");
-                return gson.toJson(new StructuredResponse("ok", "No job found", null));
+                return gson.toJson(new StructuredResponse("ok", "Error with the request", null));
             }
         });
 
         /**
+         * Returns the top clubs of the particular period
+         */
+        Spark.get("/clubs/:id", (req, res) -> {
+            String id = req.params("id");
+            if (!cache.containsKey(id)) {
+                res.status(404);
+                res.type("application/json");
+                return gson.toJson(new StructuredResponse("ok", "Invalid Request", null));
+            }
+            Jobs job = new Jobs();
+            try {
+                @SuppressWarnings("unchecked")
+                List<AllRequestRes> values = (List<AllRequestRes>) cache.get("request");
+                System.out.println(values.isEmpty());
+                List<Club> curClubs = job.getAllClubUse(values);
+                System.out.println(curClubs.isEmpty());
+                List<Club> topClubs = job.getTopClubs(curClubs, 10);
+                System.out.println(topClubs.isEmpty());
+                System.out.println(topClubs.size());
+                for(Club curClub : topClubs) {
+                    System.out.println(curClub.name);
+                } 
+                res.status(200);
+                res.type("application/json");
+                return gson.toJson(new StructuredResponse("ok", "success", topClubs));           
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            res.status(404);
+            return gson.toJson(new StructuredResponse("nok", "There was an error on the server side", null));
+
+        });
+        /**
          * Remove user from cache
          */
         Spark.post("/signout/:id", (req, res) -> {
-            String generatedId = req.queryParams("id");
+            String generatedId = req.params("id");
             cache.remove(generatedId);
             res.status(200);
             return gson.toJson(new StructuredResponse("ok", null, null));
