@@ -6,6 +6,11 @@ let Handlebars: any;
 let curId : any;
 const typeList = ["Not Completed", "Completed"]
 
+Handlebars.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
+
 class PrintList {
 
     public static readonly Name = "PrintList"
@@ -13,6 +18,7 @@ class PrintList {
     public static readonly Graphic = "GraphicList"
     private static readonly GrahicItem = "GraphicItem"
     public static readonly Request = "RequestList"
+    private static readonly Club = "MonthClub"
     private static isInit = false;
 
     constructor() {
@@ -175,7 +181,9 @@ class PrintList {
 
     private static returnClubs(data: any) {
         if (data.mStatus === "ok") {
-            console.log(data.mData);
+            $("#"+PrintList.Club).html(Handlebars.templates[PrintList.Club+".hb"](data))
+            $('#exampleModalCenter3').modal('show')
+
         }
     }
 
