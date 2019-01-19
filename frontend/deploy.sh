@@ -26,11 +26,13 @@ cp -r ./css/ $TARGETFOLDER/$WEBFOLDERNAME/css/
 echo 'Compiling files'
 node_modules/handlebars/bin/handlebars ./hb/PrintList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 node_modules/handlebars/bin/handlebars ./hb/EntryItem.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
-node_modules/handlebars/bin/handlebars hb/GraphicList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
-node_modules/handlebars/bin/handlebars hb/GraphicItem.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
-node_modules/handlebars/bin/handlebars hb/RequestList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
-node_modules/handlebars/bin/handlebars hb/MonthClub.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars ./hb/GraphicList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars ./hb/GraphicItem.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars ./hb/RequestList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars ./hb/MonthClub.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars ./hb/Employee.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 node_modules/typescript/bin/tsc ./ts/PrintList.ts --strict --outFile $TARGETFOLDER/$WEBFOLDERNAME/js/PrintList.js
+node_modules/typescript/bin/tsc ./ts/About.ts --strict --outFile $TARGETFOLDER/$WEBFOLDERNAME/js/About.js
 
 #Copying all the libraries
 echo 'Copying libraries'
@@ -49,6 +51,7 @@ cp index.html $TARGETFOLDER/$WEBFOLDERNAME
 cp printjob.html $TARGETFOLDER/$WEBFOLDERNAME
 cp graphicreq.html $TARGETFOLDER/$WEBFOLDERNAME
 cp print.html $TARGETFOLDER/$WEBFOLDERNAME
+cp about.html $TARGETFOLDER/$WEBFOLDERNAME
 
 if [ $? != 0 ];
 then 

@@ -27,12 +27,14 @@ public final class App {
 
         Map<String, Object> cache = new HashMap<>();
 
-        Database db = Database.getDatabase(env);
+        final Database db = Database.getDatabase(env);
+
+        final GoogleSheets curJob = new GoogleSheets();
 
         Spark.staticFileLocation("/frontend");
 
         String cors_enabled = env.get("CORS_ENABLED");
-        System.out.println(cors_enabled);
+        // System.out.println(cors_enabled);
         if (cors_enabled.equals("True")) {
             final String acceptCrossOriginRequestsFrom = "*";
             final String acceptedCrossOriginRoutes = "GET,PUT,POST,DELETE,OPTIONS";
@@ -83,6 +85,7 @@ public final class App {
 
         /**
          * Spark get that returns a json with all the printInformation
+         * 
          * @param requestType [ printrequest, graphicrequest, allrequest ]
          */
         Spark.get("/getJobs/:requestType/:id", (req, res) -> {
@@ -92,7 +95,6 @@ public final class App {
                 res.status(404);
                 return gson.toJson(new StructuredResponse("nok", "User not allowed", null));
             }
-            GoogleSheets curJob = new GoogleSheets();
             switch (reqType) {
             case "printrequest":
                 final String printId = db.getSpreadsheetKey("printrequest");
@@ -139,6 +141,22 @@ public final class App {
         });
 
         /**
+         * Retrieve the information about the staff currently working at the source
+         */
+        Spark.get("/team", (req, res) -> {
+            final String sheetId = db.getSpreadsheetKey("team");
+            List<Worker> result = curJob.allWorkers(sheetId);
+            if (result != null) {
+                res.status(200);
+                res.type("application/json");
+                return gson.toJson(new StructuredResponse("ok", null, result));
+            }
+            res.status(200);
+            res.type("application/json");
+            return gson.toJson(new StructuredResponse("ok", "No job found", null));
+        });
+
+        /**
          * Returns the top clubs of the particular period
          */
         Spark.get("/clubs/:id", (req, res) -> {
@@ -152,18 +170,18 @@ public final class App {
             try {
                 @SuppressWarnings("unchecked")
                 List<AllRequestRes> values = (List<AllRequestRes>) cache.get("request");
-                System.out.println(values.isEmpty());
+                // System.out.println(values.isEmpty());
                 List<Club> curClubs = job.getAllClubUse(values);
-                System.out.println(curClubs.isEmpty());
+                // System.out.println(curClubs.isEmpty());
                 List<Club> topClubs = job.getTopClubs(curClubs, 10);
-                System.out.println(topClubs.isEmpty());
-                System.out.println(topClubs.size());
-                for(Club curClub : topClubs) {
-                    System.out.println(curClub.name);
-                } 
+                // System.out.println(topClubs.isEmpty());
+                // System.out.println(topClubs.size());
+                // for(Club curClub : topClubs) {
+                // System.out.println(curClub.name);
+                // }
                 res.status(200);
                 res.type("application/json");
-                return gson.toJson(new StructuredResponse("ok", "success", topClubs));           
+                return gson.toJson(new StructuredResponse("ok", "success", topClubs));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -171,6 +189,31 @@ public final class App {
             return gson.toJson(new StructuredResponse("nok", "There was an error on the server side", null));
 
         });
+
+        /**
+         * Update the spreadsheet, if a printjob has been completed
+         */
+        Spark.post("/update/printrequest/:newvalue/:id", (req, res) -> {
+            String[] values = req.params("newvalue").split(":");
+            String id = req.params("id");
+            if (!cache.containsKey(id)) {
+                res.status(404);
+                res.type("application/json");
+                return gson.toJson(new StructuredResponse("ok", "Invalid Request", null));
+            }
+            String newValue = values[0];
+            String itemId = values[1];
+            final String printId = db.getSpreadsheetKey("printrequest");
+            if (curJob.updateComplete(printId, itemId, newValue)) {
+                res.status(200);
+                res.type("application/json");
+                return gson.toJson(new StructuredResponse("ok", "success", null));
+            }    
+            res.status(200);
+            res.type("application/json");
+            return gson.toJson(new StructuredResponse("ok", "Invalid Request", null));    
+        });
+
         /**
          * Remove user from cache
          */
@@ -235,5 +278,7 @@ public final class App {
             salt.append(SALTCHARS.charAt(index));
         }
         String saltStr = salt.toString();
-        return saltStr;    }
+        return saltStr;
+    }
+
 }

@@ -61,7 +61,7 @@
             }  
         </script>
         <style type="text/css">
-            #custom-signin {
+            /* #custom-signin {
               display: inline-block;
               background: white;
               color: #444;
@@ -70,16 +70,17 @@
               border: thin solid #888;
               box-shadow: 1px 1px 1px grey;
               white-space: nowrap;
-            }
+            } */
             #custom-signin:hover {
               cursor: pointer;
             }
             span.label {
+              display: inline-block;
               font-family: serif;
               font-weight: normal;
             }
-            span.icon {
-              background: url('/raw/btn_google_signin_dark_pressed_web@2x.png') transparent 5px 50% no-repeat;
+            .icon {
+              /* background: url('./raw/google_signin_buttons/web/2x/btn_google_signin_dark_normal_web@2x.png') no-repeat; */
               display: inline-block;
               vertical-align: middle;
             }
@@ -111,16 +112,13 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About us
+                        <a class="nav-link" href="./about.html">About us
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#loginmodal"
                             data-toggle="modal" data-target="#loginmodal">Employee
                             Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
                     </li>
                 </ul>
             </div>
@@ -152,18 +150,12 @@
                             <div id="gSignInWrapper">
                                 <span class="label">Sign in with:</span>
                                 <div id="custom-signin" class="customGPlusSignIn">
-                                  <span class="icon"></span>
-                                  <span class="buttonText">Google</span>
+                                  <img src="./raw/google_signin_buttons/web/1x/btn_google_signin_dark_focus_web.png" class="icon img-fluid"
+                                    style="max-width: 100%; height: auto;"></img>
+                                  <!-- <span class="buttonText">Google</span> -->
                                 </div>
-                              </div>
-                              <div id="name"></div>                        
+                            </div>
                         </form>
-                        <!--
-          <a class="g-signin2 btn btn-block btn-social btn-google my-2 text-center" style="color: white" data-onsuccess="onSignIn">
-            <span class="fa fa-google"></span>
-                Sign in with Google
-        </a>
-    -->
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-danger btn-default

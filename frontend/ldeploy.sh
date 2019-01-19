@@ -18,6 +18,8 @@ cp index.html $TARGETFOLDER
 cp graphicreq.html $TARGETFOLDER
 cp printjob.html $TARGETFOLDER
 cp print.html $TARGETFOLDER
+cp about.html $TARGETFOLDER
+
 node_modules/typescript/bin/tsc ./ts/PrintList.ts --strict --outFile $TARGETFOLDER/js/PrintList.js
 cp node_modules/handlebars/dist/handlebars.min.js $TARGETFOLDER/$WEBFOLDERNAME
 node_modules/handlebars/bin/handlebars hb/PrintList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
@@ -25,10 +27,16 @@ node_modules/handlebars/bin/handlebars hb/EntryItem.hb >> $TARGETFOLDER/$WEBFOLD
 node_modules/handlebars/bin/handlebars hb/GraphicList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 node_modules/handlebars/bin/handlebars hb/GraphicItem.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
 node_modules/handlebars/bin/handlebars hb/RequestList.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars hb/MonthClub.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/handlebars/bin/handlebars ./hb/Employee.hb >> $TARGETFOLDER/$WEBFOLDERNAME/js/templates.js
+node_modules/typescript/bin/tsc ./ts/About.ts --strict --outFile $TARGETFOLDER/js/About.js
+
+
 cp node_modules/jquery/dist/jquery.min.js $TARGETFOLDER
 cp -r ./raw/ $TARGETFOLDER/raw/
 cp -r ./js/*.js $TARGETFOLDER/js/
 cp -r ./css/ $TARGETFOLDER/css/
+cp -r ./less/ $TARGETFOLDER/less/
 cp node_modules/bootstrap/dist/js/bootstrap.min.js $TARGETFOLDER
 cp node_modules/bootstrap/dist/css/bootstrap.min.css $TARGETFOLDER
 cp -R node_modules/bootstrap/dist/fonts $TARGETFOLDER

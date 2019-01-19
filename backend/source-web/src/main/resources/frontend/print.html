@@ -51,11 +51,8 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About us
+                        <a class="nav-link" href="./about.html">About us
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <p class="nav-link"></p>
@@ -118,8 +115,22 @@
         <div id="EntryItem"></div>
         <div id="GraphicItem"></div>
         <div id="RequestItem"></div>
+        <div id="MonthClub"></div>
         <script src="./js/script.js" async defer></script>
+        <script src="https://apis.google.com/js/api:client.js"></script>
         <script>
+            var googleUser = {};
+            var startApp = function() {
+                gapi.load('auth2', function() {
+                    auth2 = gapi.auth2.init({
+                        client_id: '463395064610-5k6r1ilnlg08qv18rkdp95fp4jadmsk1.apps.googleusercontent.com',
+                        cookiepolicy: 'single_host_origin',
+                        scope : 'profile email'
+                    });
+                    //attachSignin(document.getElementById('custom-signin'));
+                });
+            };          
+            
             function signOut() {
                 var auth2 = gapi.auth2.getAuthInstance();
                 auth2.signOut().then(function () {
@@ -129,9 +140,11 @@
                     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     xhr.responseType = "json"
                     xhr.send('id=' + window.localStorage.getItem("id"));
-                    xhr.onload = function(e) {console.log(e.response)}
-                    console.log('User signed out.');
-                    $(location).attr('href', './index.html');
+                    xhr.onload = function(e) {
+                        console.log(e.response)
+                        console.log('User signed out.');
+                        $(location).attr('href', './index.html');
+                    }
                 });
                 window.sessionStorage.clear();
             }
@@ -139,5 +152,6 @@
         <script src="js/PrintList.js"></script>
         <script src="https://apis.google.com/js/platform.js?onload=onLoad" async
             defer></script>
+        <script>startApp();</script>
     </body>
 </html>

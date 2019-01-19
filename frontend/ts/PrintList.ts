@@ -22,15 +22,8 @@ class PrintList {
     private static isInit = false;
 
     constructor() {
-        this.init();
     }
-    /**
-     * This will create the table that we will use in the table
-     */
-    private init() {
-        PrintList.isInit = true;
-    } 
-    
+
     //Send a request to the back end to retrieve all of the submitted printjobs
     public refreshPrintJob() {
         var generatedId = window.localStorage.getItem("id");
@@ -151,12 +144,13 @@ class PrintList {
     private static updateItem() {
         var updatedval = $("#options").val();
         var value = typeList.indexOf(updatedval)
+        var generatedId = window.localStorage.getItem("id");
         curId = window.localStorage.getItem("curItemId");
         let values = JSON.parse(window.localStorage.getItem("values")).mData[curId-1];
         if (value != values.done) {
             $.ajax({
                 type: 'POST',
-                url: backendUrl2 + "/update/printrequest/" + value + ":" + curId,
+                url: backendUrl2 + "/update/printrequest/" + value + ":" + curId + "/" + generatedId,
                 dataType: 'json',
                 success: this.successUpdate,
                 failure: function(e: any) {
@@ -168,24 +162,29 @@ class PrintList {
     }
 
     //Make a call to get all of the top clubs
-    private static getTopClubs() {
+    public static getTopClubs() {
         var generatedId = window.localStorage.getItem("id");
-
         $.ajax({
             type: 'GET',
             url: backendUrl2 + '/clubs/' + generatedId,
             dataType: 'JSON',
-            success: this.returnClubs
+            success: function(data: any) {
+                console.log("Here");
+                if (data.mStatus === "ok") {
+                    $("#"+PrintList.Club).html(Handlebars.templates[PrintList.Club+".hb"](data))
+                    $('#exampleModalCenter3').modal('show')
+                }
+            }
         })
     }
 
-    private static returnClubs(data: any) {
-        if (data.mStatus === "ok") {
-            $("#"+PrintList.Club).html(Handlebars.templates[PrintList.Club+".hb"](data))
-            $('#exampleModalCenter3').modal('show')
-
-        }
-    }
+    // private static returnClubs(data: any) {
+    //     console.log("Here");
+    //     if (data.mStatus === "ok") {
+    //         $("#"+PrintList.Club).html(Handlebars.templates[PrintList.Club+".hb"](data))
+    //         $('#exampleModalCenter3').modal('show')
+    //     }
+    // }
 
     private static successUpdate(data: any) {
         if (data.mStatus !== "ok") {
@@ -193,7 +192,8 @@ class PrintList {
         } else {
             window.alert("Update Successful")
             $('#exampleModalCenter').modal('hide')
-        }
+            location.reload();
+        }  
     }
 }
 

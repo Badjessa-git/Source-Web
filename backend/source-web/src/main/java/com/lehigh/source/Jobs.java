@@ -30,7 +30,7 @@ public class Jobs{
         for (Map.Entry<String, Integer> entry : map.entrySet()){
             String name = entry.getKey();
             String usage = ""+entry.getValue()+"/"+size;
-            Double percentage = (double) entry.getValue()/size;
+            Double percentage = ((double) entry.getValue()/size) * 100;
             Club curClub = new Club(name, usage, percentage);
             res.add(curClub);
         }

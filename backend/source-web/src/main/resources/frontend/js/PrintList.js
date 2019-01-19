@@ -6,16 +6,12 @@ var alljobform;
 var Handlebars;
 var curId;
 var typeList = ["Not Completed", "Completed"];
+Handlebars.registerHelper("inc", function (value, options) {
+    return parseInt(value) + 1;
+});
 var PrintList = /** @class */ (function () {
     function PrintList() {
-        this.init();
     }
-    /**
-     * This will create the table that we will use in the table
-     */
-    PrintList.prototype.init = function () {
-        PrintList.isInit = true;
-    };
     //Send a request to the back end to retrieve all of the submitted printjobs
     PrintList.prototype.refreshPrintJob = function () {
         var generatedId = window.localStorage.getItem("id");
@@ -132,12 +128,13 @@ var PrintList = /** @class */ (function () {
     PrintList.updateItem = function () {
         var updatedval = $("#options").val();
         var value = typeList.indexOf(updatedval);
+        var generatedId = window.localStorage.getItem("id");
         curId = window.localStorage.getItem("curItemId");
         var values = JSON.parse(window.localStorage.getItem("values")).mData[curId - 1];
         if (value != values.done) {
             $.ajax({
                 type: 'POST',
-                url: backendUrl2 + "/update/printrequest/" + value + ":" + curId,
+                url: backendUrl2 + "/update/printrequest/" + value + ":" + curId + "/" + generatedId,
                 dataType: 'json',
                 success: this.successUpdate,
                 failure: function (e) {
@@ -153,14 +150,22 @@ var PrintList = /** @class */ (function () {
             type: 'GET',
             url: backendUrl2 + '/clubs/' + generatedId,
             dataType: 'JSON',
-            success: this.returnClubs
+            success: function (data) {
+                console.log("Here");
+                if (data.mStatus === "ok") {
+                    $("#" + PrintList.Club).html(Handlebars.templates[PrintList.Club + ".hb"](data));
+                    $('#exampleModalCenter3').modal('show');
+                }
+            }
         });
     };
-    PrintList.returnClubs = function (data) {
-        if (data.mStatus === "ok") {
-            console.log(data.mData);
-        }
-    };
+    // private static returnClubs(data: any) {
+    //     console.log("Here");
+    //     if (data.mStatus === "ok") {
+    //         $("#"+PrintList.Club).html(Handlebars.templates[PrintList.Club+".hb"](data))
+    //         $('#exampleModalCenter3').modal('show')
+    //     }
+    // }
     PrintList.successUpdate = function (data) {
         if (data.mStatus !== "ok") {
             window.alert("Error updating element, please try at a different time");
@@ -168,6 +173,7 @@ var PrintList = /** @class */ (function () {
         else {
             window.alert("Update Successful");
             $('#exampleModalCenter').modal('hide');
+            location.reload();
         }
     };
     PrintList.Name = "PrintList";
@@ -175,6 +181,7 @@ var PrintList = /** @class */ (function () {
     PrintList.Graphic = "GraphicList";
     PrintList.GrahicItem = "GraphicItem";
     PrintList.Request = "RequestList";
+    PrintList.Club = "MonthClub";
     PrintList.isInit = false;
     return PrintList;
 }());

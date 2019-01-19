@@ -24,7 +24,7 @@
                                     <th scope="row">{{inc @index}}</th>
                                     <td>{{this.name}}</td>
                                     <td>{{this.occurence}}</td>
-                                    <td>{{this.percentagge}}</td>
+                                    <td>{{this.percentage}}%</td>
                                 </tr>
                                 {{/each}}
                             </tbody>
