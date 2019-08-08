@@ -1,12 +1,12 @@
-# Source Web Application (JAVA BACKEND)
+# Source Web Application
 
 This repository contains files regarding the webpage of the Student Organization and Resource Center 
 at the source.
 
 The tools used are:
-- Java
-- Maven 
-- Heroku
+- Firebase
+- Node
+- React
 
 About Application:
   This web application serves to help Lehigh University Student interact more easily with the SOuRCe in order to make sure that the needs of their organization are taken care of.
