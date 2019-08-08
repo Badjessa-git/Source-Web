@@ -1,0 +1,41 @@
+.GeneralRequestForm {
+    background-color: whitesmoke;
+    //display: flex;
+    position:fixed; /* change this to fixed */
+    top: 20%;
+    left: 35%;
+    justify-content: center;
+    width: 30%;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    text-align: center;
+    .formDisplay {
+        .title {
+            font-weight: bold;
+            font-size: 24px;
+            padding-bottom: 1rem;
+        }
+        display: grid;
+        padding-left: 3rem;
+        padding-right: 3rem;
+        .upload {
+            padding-top: 2rem;
+        }
+        .actionButtons {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            padding-top: 1rem;
+            .empty {
+                width: 1rem;
+            }
+        }
+    }
+
+    .gRequest, .lRequest {
+        display: grid;
+        .generalInfo {
+            display: grid;
+        }
+    }
+}

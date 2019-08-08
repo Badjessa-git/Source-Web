@@ -1,0 +1,33 @@
+.Loading {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    .loading-logo {
+        animation: loading infinite 2s linear;
+        position:fixed; /* change this to fixed */
+        top: 40%;
+        left: 35%;
+        img {
+            height: 5rem;
+            z-index: 9999;
+        }
+    }
+    .loadingText {
+        top: 45%;
+        left: 35%;
+        color: white;
+        font-size: 2rem;
+        font-weight: bold;
+        font-style: italic;
+    }
+}
+
+@keyframes loading {
+    50% { left: 40% }
+    50% { left: 50% }
+}

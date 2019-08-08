@@ -1,0 +1,62 @@
+.About {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    padding-bottom: 3rem;
+    padding-top: 1.5rem;
+    line-height: 1.6;
+    .source-logo {
+        text-align: center;
+        img {
+            height: 20rem;
+        }
+    }
+    .aboutInfo {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding-left: 15rem;
+        padding-right: 15rem;
+        .body {
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            padding-bottom: 1rem;
+            justify-content: space-between;
+            .left {
+                .itemTitle {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    padding-bottom: .5rem;
+                }
+                ul {
+                    text-align: left;
+                    list-style-type: disc;
+                    padding-bottom: 2rem;
+                }
+            }
+            .right {
+                .title {
+                    font-weight: bold;
+                    padding-bottom: 0.5rem;
+                }
+                .info {
+                    text-align: left;
+                }
+            }
+        }
+
+        .footer {
+            .mission, .footerTitle {
+                font-weight: bold;
+                text-transform: capitalize;
+            }
+
+            .missionBody {
+                padding-bottom: 2rem;
+            }
+        }
+    }
+}
