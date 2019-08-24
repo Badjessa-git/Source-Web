@@ -106,9 +106,10 @@ app.get('/getAllRequest/:requestType', (req, res) => {
     db.collection(requestType).get().then((firebaseResponse) => {
         let response = [];
         firebaseResponse.forEach((snapshot) => {
+            let data = snapshot.data();
+            data['id'] = snapshot.id;
             response.push({
-                id: snapshot.id,
-                data: snapshot.data(),
+                data: data
             });
         });
         res.set({ 'Content-Type': 'application/json' });

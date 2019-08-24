@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ReactModalLogin from 'react-modal-login';
 import { googleconfig } from '../config/config';
 import { firebaseConfig } from '../constants/config';
-import { authenticated } from '../actions/sourceWebClientActions';
+import { authenticated, fetchRowData } from '../actions/sourceWebClientActions';
 import history from '../history';
 import './LoginDialog.less';
 import * as firebase from "firebase/app";
@@ -22,6 +22,7 @@ class LoginDialog extends Component {
             showModal: PropTypes.bool.isRequired,
             onCloseModal: PropTypes.func.isRequired,
             history: PropTypes.object.isRequired,
+            fetchRowData: PropTypes.func.isRequired,
             error: PropTypes.object,
         };
     }
@@ -53,7 +54,7 @@ class LoginDialog extends Component {
         let postParam = {
             id_token: response.id_token,
         }
-        fetch(`${PROD}/login`, {
+        fetch(`${DEV}/login`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -67,6 +68,7 @@ class LoginDialog extends Component {
                         loading: false,
                         error: null,
                     });
+                    this.props.fetchRowData('pRequest');
                     history.push('/dashboard');
                 });
             }
@@ -183,4 +185,5 @@ class LoginDialog extends Component {
     }
 }
 
-export default connect(null, { authenticated })(LoginDialog)
+
+export default connect(null, { authenticated, fetchRowData })(LoginDialog)

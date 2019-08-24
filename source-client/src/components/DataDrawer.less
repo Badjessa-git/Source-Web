@@ -1,0 +1,36 @@
+.MuiDrawer-root {
+    .MuiPaper-root {
+        //background: lightgray;
+        overflow-y: auto;
+        width: 25%;
+        .title {
+            padding-top: 1rem;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+        }
+        .Print, .Graphic, .Loan {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-top: 2rem;
+            .display {
+                display: flex;
+                flex-direction: column;
+                padding-bottom: 1.5rem;
+                .label {
+                    font-weight: bold;
+                    font-size:23px;
+                    padding-bottom: .5rem;
+                }
+                .value {
+                    font-size: 18px;
+                    font-style: italic;
+                }
+            }
+        }
+    }
+}
+

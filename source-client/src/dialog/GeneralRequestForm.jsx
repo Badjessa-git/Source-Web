@@ -153,7 +153,7 @@ class GeneralRequestForm extends Component {
                         value={this.state.rItem || ''}
                         onChange={this.onChange}
                         name="rItem">
-                        <MenuItem value="table">Table</MenuItem>
+                        <MenuItem value="Table">Table</MenuItem>
                     </Select>
                 </FormControl>
             </div>
