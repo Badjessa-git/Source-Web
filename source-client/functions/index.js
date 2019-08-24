@@ -114,6 +114,7 @@ app.get('/getAllRequest/:requestType', (req, res) => {
         });
         res.set({ 'Content-Type': 'application/json' });
         res.status(200).send(JSON.stringify(response));
+        return;
     }).catch((err) => {
         res.sendStatus(500);
         throw new Error(err);
