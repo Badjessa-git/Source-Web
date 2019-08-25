@@ -7,7 +7,7 @@ export default class FormRequest {
     static uploadFile(file) {
         let data = new FormData();
         data.append('file', file);
-        return fetch(`${PROD}/upload`, {
+        return fetch(`${DEV}/upload`, {
             method: 'POST',
             body: data,
         }).then((res) => {
@@ -30,7 +30,8 @@ export default class FormRequest {
     }
 
     static submitForm(type, formData) {
-        return fetch(`${PROD}/request/${type}`, {
+        formData['completed'] = false;
+        return fetch(`${DEV}/request/${type}`, {
             method: 'POST',
             body: JSON.stringify(formData),
         }).then((res) => { 

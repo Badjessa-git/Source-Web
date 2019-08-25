@@ -52,7 +52,7 @@ class SourceHeader extends Component {
     }
 
     _logUserOut() {
-        fetch(`${PROD}/logout`, {
+        fetch(`${DEV}/logout`, {
             method: 'POST'
         }).then(res => this.props.authenticated(false, null, null))
         .catch(err => console.log(err));

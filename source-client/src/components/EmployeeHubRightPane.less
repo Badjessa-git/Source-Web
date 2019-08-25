@@ -1,3 +1,23 @@
 .EmployeeHubRightPane {
     margin: 2rem;
+    display: flex;
+    flex-basis: 100%;
+    overflow-y: auto;
+    .ReactTable {
+        flex-basis: 100%;
+        border: 1px solid black;
+        .rt-tbody .rt-tr-group {
+            border: 1px solid black;
+            &:hover {
+                cursor: pointer;
+                background-color: lightgray;
+            }
+            .rt-td {
+                border-right: 1px solid #15030a;
+            }
+        }
+        .rt-tr-group {
+            height: 40px;
+        }
+    }    
 }

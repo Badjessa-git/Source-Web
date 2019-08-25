@@ -11,7 +11,6 @@ const initialState = {
 }
 
 export default function (state = initialState, action) {
-    debugger;
     switch (action.type) {
         case SHOW_PRINT_DIALOG:
             return {

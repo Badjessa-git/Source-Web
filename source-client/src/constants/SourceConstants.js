@@ -9,7 +9,7 @@ export const leftPaneSection = [
     },
     {
         id: 3,
-        name: "Other Requests",
+        name: "Loan Requests",
     },
     {
         id: 4,
