@@ -48,6 +48,18 @@ class DataDrawer extends PureComponent {
         }
     }
 
+    _markCompleted() {
+
+    }
+
+    _drawCompletedButton(completed) {
+        return (
+            <div className="completed">
+                <Button onClick={() => {}}>{completed ? 'Mark Not Completed' : 'Mark Completed'}</Button>
+            </div>
+        );
+    }
+
     _grabCommonElements(data) {
         let firstName = this._displayData('First Name', data['firstName']);
         let lastName = this._displayData('Last Name', data['lastName']);
