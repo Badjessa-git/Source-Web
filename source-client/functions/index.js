@@ -45,10 +45,21 @@ app.post('/login', (req, res) => {
         //////Figure out how to check that user has not been signed in already
         let credential = firebase.auth.GoogleAuthProvider.credential(id_token);
         firebase.auth().signInWithCredential(credential).then((user) => {
-            let userInfo = user.user;
-            res.set({ 'Content-Type': 'application/json' });
-            const response = JSON.stringify(userInfo);
-            res.send(response);
+            db.collection('employees').get().then((firebaseResponse) => {
+                firebaseResponse.forEach(emp => {
+                    doc = emp.data();
+                    let userInfo = user.user;
+                    if (userInfo.email  === doc['email']) {
+                        res.set({ 'Content-Type': 'application/json' });
+                        const response = JSON.stringify(userInfo);
+                        res.send(response);
+                        return true;
+                    }
+                });
+            }).catch(error => {
+                res.status(204).send("Error Logging user in");
+                throw new Error("Error Loggin user in");
+            });
             return;
         }).catch((error) => {
             res.status(204).send("Error Logging user in");

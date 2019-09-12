@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
+import DataDrawer from './DataDrawer';
+import Board from 'react-trello';
 import { rowClicked, displayDrawer } from '../actions/sourceWebClientActions';
 import './EmployeeHubRightPane.less'
 import 'react-table/react-table.css'
-import DataDrawer from './DataDrawer';
+import { trelloLanes } from '../constants/SourceConstants';
 
 class EmployeeHubRightPane extends Component {
     static get propTypes() {
@@ -30,6 +32,8 @@ class EmployeeHubRightPane extends Component {
     constructor(props) {
         super(props);
         this._onRowClick = this._onRowClick.bind(this);
+        this._onCardAdd = this._onCardAdd.bind(this);
+        this._onCardDelete = this._onCardDelete.bind(this);
     }
 
     _printJobsList() {
@@ -121,9 +125,35 @@ class EmployeeHubRightPane extends Component {
                 return this._graphicJobList();
             case 3:
                 return this._loanJobRequest();
+            case 4:
+            case 5:
+            case 6:
+                return this._getTrelloBoard();
             default:
                 return null;
         }
+    }
+
+    _getTrelloBoard() {
+        let data = trelloLanes;
+        return <Board 
+            className="trelloBoard" 
+            data={data}
+            onCardAdd={(card, laneId) => this._onCardAdd(card, laneId)}
+            onCardDelet={(card, laneId) => this._onCardDelete(card, laneId)}
+            editable
+            cardDraggable />
+    }
+
+    _onCardAdd(card, laneId) {
+        let key;
+        for(key in card) {
+            console.log(`${key} : ${card[key]}`)
+        }
+    }
+
+    _onCardDelete(card, laneId) {
+        return null;
     }
 
     _onRowClick(state, rowInfo) {

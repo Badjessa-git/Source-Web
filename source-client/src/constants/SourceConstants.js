@@ -24,3 +24,31 @@ export const leftPaneSection = [
         name: "TODO Board",
     }
 ]
+
+export const trelloLanes = {
+    lanes: [
+        {
+            id: 'planning',
+            title: 'TODO',
+            label: '0/0',
+            style: {width: 355},
+            cards: [],
+        },
+        {
+            id: 'doing',
+            title: 'Doing',
+            label: '0/0',
+            style: {width: 355 },
+            cards: [],
+            disallowAddingCard: true,
+        },
+        {
+            id: 'done',
+            title: 'Done',
+            label: '0/0',
+            style: {width: 355 },
+            cards: [],
+            disallowAddingCard: true,
+        }
+    ]
+}
